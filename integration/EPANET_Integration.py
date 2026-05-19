@@ -3,7 +3,7 @@ import math
 import pandas
 import numpy as np
 from scipy.optimize import root
-from PipeModel import *
+from physics.PipeModel import PipeLeakModel
 import wntr
 
 class EPANETIntegrator:

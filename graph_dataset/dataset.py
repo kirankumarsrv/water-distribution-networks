@@ -1,7 +1,7 @@
 # dataset.py
 # Full corrected dataset generator using your existing:
-#   - EPANET_Integration.py
-#   - PipeModel.py
+#   - integration/EPANET_Integration.py
+#   - physics/PipeModel.py
 #
 # Output:
 #   DATASETS/
@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 from torch_geometric.data import Data
-from EPANET_Integration import EPANETIntegrator
+from integration.EPANET_Integration import EPANETIntegrator
 
 
 # =====================================================
