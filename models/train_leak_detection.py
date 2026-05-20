@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -19,20 +20,22 @@ MODELS_DIR = ROOT_DIR / "models"
 MODELS_DIR.mkdir(exist_ok=True)
 
 
-def load_classification_data() -> tuple[np.ndarray, np.ndarray]:
-    x_path = DATA_DIR / "X_classification.npy"
+def load_classification_data(use_cleaned: bool = False) -> tuple[np.ndarray, np.ndarray]:
+    x_file = "X_classification_no_leak.npy" if use_cleaned else "X_classification.npy"
+    x_path = DATA_DIR / x_file
     y_path = DATA_DIR / "y_classification.npy"
     if x_path.exists() and y_path.exists():
         return np.load(x_path), np.load(y_path)
 
-    dataset_path = DATA_DIR / "classification_B.pt"
-    if dataset_path.exists():
-        with torch.serialization.safe_globals([np._core.multiarray._reconstruct]):
-            data = torch.load(dataset_path, weights_only=False)
-        return data["X"], data["y"]
+    if not use_cleaned:
+        dataset_path = DATA_DIR / "classification_B.pt"
+        if dataset_path.exists():
+            with torch.serialization.safe_globals([np._core.multiarray._reconstruct]):
+                data = torch.load(dataset_path, weights_only=False)
+            return data["X"], data["y"]
 
     raise FileNotFoundError(
-        f"Classification dataset not found. Expected either {x_path} and {y_path} or {dataset_path}"
+        f"Classification dataset not found. Expected either {x_path} and {y_path} or classification_B.pt"
     )
 
 
@@ -128,13 +131,48 @@ def evaluate_model(model: Any, X: np.ndarray, y: np.ndarray) -> Dict[str, Any]:
     }
 
 
+def load_feature_names(use_cleaned: bool = False) -> list[str] | None:
+    feature_file = "feature_names_no_leak.json" if use_cleaned else "feature_names.json"
+    feature_path = DATA_DIR / feature_file
+    if feature_path.exists():
+        with feature_path.open("r", encoding="utf-8") as handle:
+            return json.load(handle)
+    return None
+
+
+def extract_feature_importances(model: Any, feature_names: list[str] | None = None) -> list[Dict[str, Any]]:
+    if not hasattr(model, "feature_importances_"):
+        return []
+    importances = getattr(model, "feature_importances_")
+    indexed = list(enumerate(importances))
+    indexed.sort(key=lambda x: x[1], reverse=True)
+    result = []
+    for idx, importance in indexed:
+        result.append(
+            {
+                "feature_index": idx,
+                "feature_name": feature_names[idx] if feature_names and idx < len(feature_names) else None,
+                "importance": float(importance),
+            }
+        )
+    return result
+
+
 def save_metrics(metrics: Dict[str, Any], output_path: Path) -> None:
     with output_path.open("w", encoding="utf-8") as handle:
         json.dump(metrics, handle, indent=2)
 
 
 def main() -> None:
-    X, y = load_classification_data()
+    parser = argparse.ArgumentParser(description="Train leak detection model")
+    parser.add_argument(
+        "--use-cleaned",
+        action="store_true",
+        help="Use cleaned classification features from DATASETS/X_classification_no_leak.npy",
+    )
+    args = parser.parse_args()
+
+    X, y = load_classification_data(use_cleaned=args.use_cleaned)
     splits = split_train_val_test(X, y)
 
     print("\n" + "="*70)
@@ -148,7 +186,11 @@ def main() -> None:
     best_name, classifier, best_params, model_selection_summary = select_best_model(
         splits["X_train"], splits["y_train"]
     )
-    joblib.dump(classifier, MODELS_DIR / "leak_detection_model.pkl")
+    model_output = "leak_detection_model_cleaned.pkl" if args.use_cleaned else "leak_detection_model.pkl"
+    joblib.dump(classifier, MODELS_DIR / model_output)
+
+    feature_names = load_feature_names(use_cleaned=args.use_cleaned)
+    feature_importances = extract_feature_importances(classifier, feature_names=feature_names)
 
     print("\n" + "="*70)
     print("PERFORMANCE EVALUATION")
@@ -160,11 +202,14 @@ def main() -> None:
         "selected_model": best_name,
         "best_params": best_params,
         "model_selection": model_selection_summary,
+        "feature_names": feature_names,
+        "feature_importances": feature_importances,
         "train": evaluate_model(classifier, splits["X_train"], splits["y_train"]),
         "val": evaluate_model(classifier, splits["X_val"], splits["y_val"]),
         "test": evaluate_model(classifier, splits["X_test"], splits["y_test"]),
     }
-    save_metrics(metrics, MODELS_DIR / "leak_detection_metrics.json")
+    metrics_output = "leak_detection_metrics_cleaned.json" if args.use_cleaned else "leak_detection_metrics.json"
+    save_metrics(metrics, MODELS_DIR / metrics_output)
 
     test_accuracy = metrics["test"]["classification_report"]["accuracy"]
     print(f"\n✓ Selected model: {best_name}")

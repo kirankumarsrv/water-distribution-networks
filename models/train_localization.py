@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import argparse
 import json
 from pathlib import Path
 from typing import Any, Dict, List, Tuple
@@ -26,11 +27,16 @@ def load_baseline_reference() -> Dict[str, float]:
     raise FileNotFoundError(f"Baseline reference not found at {baseline_path}")
 
 
-def load_localization_data() -> tuple[np.ndarray, np.ndarray]:
-    x_path = DATA_DIR / "X_localization.npy"
+def load_localization_data(use_cleaned: bool = False) -> tuple[np.ndarray, np.ndarray]:
+    x_file = "X_localization_no_leak.npy" if use_cleaned else "X_localization.npy"
+    x_path = DATA_DIR / x_file
     y_path = DATA_DIR / "y_localization.npy"
     if x_path.exists() and y_path.exists():
         return np.load(x_path), np.load(y_path)
+    if use_cleaned:
+        raise FileNotFoundError(
+            f"Cleaned localization dataset not found at {x_path}. Run scripts/clean_localization_leak_features.py first."
+        )
     raise FileNotFoundError("Localization dataset files are missing in DATASETS/")
 
 
@@ -124,8 +130,43 @@ def evaluate_model(model: Any, X: np.ndarray, y: np.ndarray) -> Dict[str, Any]:
     }
 
 
+def load_feature_names(use_cleaned: bool = False) -> list[str] | None:
+    feature_file = "localization_feature_names_no_leak.json" if use_cleaned else "localization_feature_names.json"
+    feature_path = DATA_DIR / feature_file
+    if feature_path.exists():
+        with feature_path.open("r", encoding="utf-8") as handle:
+            return json.load(handle)
+    return None
+
+
+def extract_feature_importances(model: Any, feature_names: list[str] | None = None) -> list[Dict[str, Any]]:
+    if not hasattr(model, "feature_importances_"):
+        return []
+    importances = getattr(model, "feature_importances_")
+    indexed = list(enumerate(importances))
+    indexed.sort(key=lambda x: x[1], reverse=True)
+    result = []
+    for idx, importance in indexed:
+        result.append(
+            {
+                "feature_index": idx,
+                "feature_name": feature_names[idx] if feature_names and idx < len(feature_names) else None,
+                "importance": float(importance),
+            }
+        )
+    return result
+
+
 def main() -> None:
-    X, y = load_localization_data()
+    parser = argparse.ArgumentParser(description="Train localization model")
+    parser.add_argument(
+        "--use-cleaned",
+        action="store_true",
+        help="Use cleaned localization features from DATASETS/X_localization_no_leak.npy",
+    )
+    args = parser.parse_args()
+
+    X, y = load_localization_data(use_cleaned=args.use_cleaned)
     splits = split_train_val_test(X, y)
     baseline_reference = load_baseline_reference()
     with (MODELS_DIR / "baseline_pressure_model.json").open("w", encoding="utf-8") as handle:
@@ -134,17 +175,25 @@ def main() -> None:
     best_name, model, best_params, model_selection_summary = select_best_localization_model(
         splits["X_train"], splits["y_train"]
     )
-    joblib.dump(model, MODELS_DIR / "stage2_zone_classifier.pkl")
+
+    model_output = "stage2_zone_classifier_cleaned.pkl" if args.use_cleaned else "stage2_zone_classifier.pkl"
+    joblib.dump(model, MODELS_DIR / model_output)
+
+    feature_names = load_feature_names(use_cleaned=args.use_cleaned)
+    feature_importances = extract_feature_importances(model, feature_names=feature_names)
 
     metrics = {
         "selected_model": best_name,
         "best_params": best_params,
         "model_selection": model_selection_summary,
+        "feature_names": feature_names,
+        "feature_importances": feature_importances,
         "train": evaluate_model(model, splits["X_train"], splits["y_train"]),
         "val": evaluate_model(model, splits["X_val"], splits["y_val"]),
         "test": evaluate_model(model, splits["X_test"], splits["y_test"]),
     }
-    with (MODELS_DIR / "localization_metrics.json").open("w", encoding="utf-8") as handle:
+    metrics_output = "localization_metrics_cleaned.json" if args.use_cleaned else "localization_metrics.json"
+    with (MODELS_DIR / metrics_output).open("w", encoding="utf-8") as handle:
         json.dump(metrics, handle, indent=2)
 
     print("Saved localisation model and metrics to", MODELS_DIR)

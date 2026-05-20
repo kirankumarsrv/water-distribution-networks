@@ -8,7 +8,6 @@ import numpy as np
 import pandas as pd
 import torch
 from sklearn.model_selection import StratifiedShuffleSplit
-from torch_geometric.data import Data
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 import sys
@@ -33,7 +32,12 @@ torch.manual_seed(SEED)
 os.makedirs(SAVE_DIR, exist_ok=True)
 
 
-def df_to_graph(df: pd.DataFrame, wn) -> Data | None:
+def df_to_graph(df: pd.DataFrame, wn):
+    try:
+        from torch_geometric.data import Data
+    except ImportError:
+        return None
+
     pipe_names = df["pipe"].tolist()
     if len(pipe_names) == 0:
         return None
