@@ -1,0 +1,103 @@
+{
+  "issue": "Stage 1 Isolation Forest has extremely low TPR (~5%) with contamination=0.05",
+  "root_cause": "Contamination parameter is too strict; most anomalies classified as normal",
+  "current_performance": {
+    "contamination": 0.05,
+    "val_tpr": 0.0,
+    "val_fpr": 0.0,
+    "val_specificity": 1.0
+  },
+  "optimized_performance": {
+    "contamination": 0.05,
+    "test_tpr": 0.0,
+    "test_fpr": 0.0,
+    "test_specificity": 1.0
+  },
+  "recommendation": "Update contamination from 0.05 to 0.05 in train_leak_detection.py",
+  "grid_search_results": [
+    {
+      "contamination": 0.05,
+      "TP": 0,
+      "TN": 135,
+      "FP": 0,
+      "FN": 405,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Specificity": 1.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "contamination": 0.1,
+      "TP": 0,
+      "TN": 135,
+      "FP": 0,
+      "FN": 405,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Specificity": 1.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "contamination": 0.15,
+      "TP": 0,
+      "TN": 135,
+      "FP": 0,
+      "FN": 405,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Specificity": 1.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "contamination": 0.2,
+      "TP": 0,
+      "TN": 135,
+      "FP": 0,
+      "FN": 405,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Specificity": 1.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "contamination": 0.25,
+      "TP": 0,
+      "TN": 135,
+      "FP": 0,
+      "FN": 405,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Specificity": 1.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "contamination": 0.3,
+      "TP": 0,
+      "TN": 135,
+      "FP": 0,
+      "FN": 405,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Specificity": 1.0,
+      "Precision": 0,
+      "F1": 0
+    },
+    {
+      "contamination": 0.4,
+      "TP": 0,
+      "TN": 135,
+      "FP": 0,
+      "FN": 405,
+      "TPR": 0.0,
+      "FPR": 0.0,
+      "Specificity": 1.0,
+      "Precision": 0,
+      "F1": 0
+    }
+  ]
+}
