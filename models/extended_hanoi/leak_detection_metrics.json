@@ -1,0 +1,1958 @@
+{
+  "model_type": "RandomForestClassifier",
+  "num_classes": 4,
+  "class_names": [
+    "Normal",
+    "Leak",
+    "Burst",
+    "Blockage"
+  ],
+  "selected_model": "RandomForest",
+  "best_params": {
+    "max_depth": null,
+    "max_features": "sqrt",
+    "min_samples_leaf": 1,
+    "n_estimators": 100
+  },
+  "model_selection": [
+    {
+      "model_name": "RandomForest",
+      "best_score": 1.0,
+      "best_params": {
+        "max_depth": null,
+        "max_features": "sqrt",
+        "min_samples_leaf": 1,
+        "n_estimators": 100
+      },
+      "estimator_class": "RandomForestClassifier"
+    },
+    {
+      "model_name": "ExtraTrees",
+      "best_score": 0.9976190476190476,
+      "best_params": {
+        "max_depth": null,
+        "max_features": "sqrt",
+        "min_samples_leaf": 1,
+        "n_estimators": 100
+      },
+      "estimator_class": "ExtraTreesClassifier"
+    }
+  ],
+  "feature_names": [
+    "sensor_1_H_in",
+    "sensor_1_H_out",
+    "sensor_1_Hm",
+    "sensor_1_Q_epanet",
+    "sensor_1_Q1",
+    "sensor_1_Q2",
+    "sensor_1_delta_H",
+    "sensor_1_delta_Q",
+    "sensor_1_leak_ratio",
+    "sensor_2_H_in",
+    "sensor_2_H_out",
+    "sensor_2_Hm",
+    "sensor_2_Q_epanet",
+    "sensor_2_Q1",
+    "sensor_2_Q2",
+    "sensor_2_delta_H",
+    "sensor_2_delta_Q",
+    "sensor_2_leak_ratio",
+    "sensor_3_H_in",
+    "sensor_3_H_out",
+    "sensor_3_Hm",
+    "sensor_3_Q_epanet",
+    "sensor_3_Q1",
+    "sensor_3_Q2",
+    "sensor_3_delta_H",
+    "sensor_3_delta_Q",
+    "sensor_3_leak_ratio",
+    "sensor_4_H_in",
+    "sensor_4_H_out",
+    "sensor_4_Hm",
+    "sensor_4_Q_epanet",
+    "sensor_4_Q1",
+    "sensor_4_Q2",
+    "sensor_4_delta_H",
+    "sensor_4_delta_Q",
+    "sensor_4_leak_ratio",
+    "sensor_5_H_in",
+    "sensor_5_H_out",
+    "sensor_5_Hm",
+    "sensor_5_Q_epanet",
+    "sensor_5_Q1",
+    "sensor_5_Q2",
+    "sensor_5_delta_H",
+    "sensor_5_delta_Q",
+    "sensor_5_leak_ratio",
+    "sensor_6_H_in",
+    "sensor_6_H_out",
+    "sensor_6_Hm",
+    "sensor_6_Q_epanet",
+    "sensor_6_Q1",
+    "sensor_6_Q2",
+    "sensor_6_delta_H",
+    "sensor_6_delta_Q",
+    "sensor_6_leak_ratio",
+    "sensor_7_H_in",
+    "sensor_7_H_out",
+    "sensor_7_Hm",
+    "sensor_7_Q_epanet",
+    "sensor_7_Q1",
+    "sensor_7_Q2",
+    "sensor_7_delta_H",
+    "sensor_7_delta_Q",
+    "sensor_7_leak_ratio",
+    "sensor_8_H_in",
+    "sensor_8_H_out",
+    "sensor_8_Hm",
+    "sensor_8_Q_epanet",
+    "sensor_8_Q1",
+    "sensor_8_Q2",
+    "sensor_8_delta_H",
+    "sensor_8_delta_Q",
+    "sensor_8_leak_ratio",
+    "sensor_9_H_in",
+    "sensor_9_H_out",
+    "sensor_9_Hm",
+    "sensor_9_Q_epanet",
+    "sensor_9_Q1",
+    "sensor_9_Q2",
+    "sensor_9_delta_H",
+    "sensor_9_delta_Q",
+    "sensor_9_leak_ratio",
+    "sensor_10_H_in",
+    "sensor_10_H_out",
+    "sensor_10_Hm",
+    "sensor_10_Q_epanet",
+    "sensor_10_Q1",
+    "sensor_10_Q2",
+    "sensor_10_delta_H",
+    "sensor_10_delta_Q",
+    "sensor_10_leak_ratio",
+    "sensor_11_H_in",
+    "sensor_11_H_out",
+    "sensor_11_Hm",
+    "sensor_11_Q_epanet",
+    "sensor_11_Q1",
+    "sensor_11_Q2",
+    "sensor_11_delta_H",
+    "sensor_11_delta_Q",
+    "sensor_11_leak_ratio",
+    "sensor_12_H_in",
+    "sensor_12_H_out",
+    "sensor_12_Hm",
+    "sensor_12_Q_epanet",
+    "sensor_12_Q1",
+    "sensor_12_Q2",
+    "sensor_12_delta_H",
+    "sensor_12_delta_Q",
+    "sensor_12_leak_ratio",
+    "sensor_13_H_in",
+    "sensor_13_H_out",
+    "sensor_13_Hm",
+    "sensor_13_Q_epanet",
+    "sensor_13_Q1",
+    "sensor_13_Q2",
+    "sensor_13_delta_H",
+    "sensor_13_delta_Q",
+    "sensor_13_leak_ratio",
+    "sensor_14_H_in",
+    "sensor_14_H_out",
+    "sensor_14_Hm",
+    "sensor_14_Q_epanet",
+    "sensor_14_Q1",
+    "sensor_14_Q2",
+    "sensor_14_delta_H",
+    "sensor_14_delta_Q",
+    "sensor_14_leak_ratio",
+    "sensor_15_H_in",
+    "sensor_15_H_out",
+    "sensor_15_Hm",
+    "sensor_15_Q_epanet",
+    "sensor_15_Q1",
+    "sensor_15_Q2",
+    "sensor_15_delta_H",
+    "sensor_15_delta_Q",
+    "sensor_15_leak_ratio",
+    "sensor_16_H_in",
+    "sensor_16_H_out",
+    "sensor_16_Hm",
+    "sensor_16_Q_epanet",
+    "sensor_16_Q1",
+    "sensor_16_Q2",
+    "sensor_16_delta_H",
+    "sensor_16_delta_Q",
+    "sensor_16_leak_ratio",
+    "sensor_17_H_in",
+    "sensor_17_H_out",
+    "sensor_17_Hm",
+    "sensor_17_Q_epanet",
+    "sensor_17_Q1",
+    "sensor_17_Q2",
+    "sensor_17_delta_H",
+    "sensor_17_delta_Q",
+    "sensor_17_leak_ratio",
+    "sensor_18_H_in",
+    "sensor_18_H_out",
+    "sensor_18_Hm",
+    "sensor_18_Q_epanet",
+    "sensor_18_Q1",
+    "sensor_18_Q2",
+    "sensor_18_delta_H",
+    "sensor_18_delta_Q",
+    "sensor_18_leak_ratio",
+    "sensor_19_H_in",
+    "sensor_19_H_out",
+    "sensor_19_Hm",
+    "sensor_19_Q_epanet",
+    "sensor_19_Q1",
+    "sensor_19_Q2",
+    "sensor_19_delta_H",
+    "sensor_19_delta_Q",
+    "sensor_19_leak_ratio",
+    "sensor_20_H_in",
+    "sensor_20_H_out",
+    "sensor_20_Hm",
+    "sensor_20_Q_epanet",
+    "sensor_20_Q1",
+    "sensor_20_Q2",
+    "sensor_20_delta_H",
+    "sensor_20_delta_Q",
+    "sensor_20_leak_ratio",
+    "sensor_21_H_in",
+    "sensor_21_H_out",
+    "sensor_21_Hm",
+    "sensor_21_Q_epanet",
+    "sensor_21_Q1",
+    "sensor_21_Q2",
+    "sensor_21_delta_H",
+    "sensor_21_delta_Q",
+    "sensor_21_leak_ratio",
+    "sensor_22_H_in",
+    "sensor_22_H_out",
+    "sensor_22_Hm",
+    "sensor_22_Q_epanet",
+    "sensor_22_Q1",
+    "sensor_22_Q2",
+    "sensor_22_delta_H",
+    "sensor_22_delta_Q",
+    "sensor_22_leak_ratio",
+    "sensor_23_H_in",
+    "sensor_23_H_out",
+    "sensor_23_Hm",
+    "sensor_23_Q_epanet",
+    "sensor_23_Q1",
+    "sensor_23_Q2",
+    "sensor_23_delta_H",
+    "sensor_23_delta_Q",
+    "sensor_23_leak_ratio",
+    "sensor_24_H_in",
+    "sensor_24_H_out",
+    "sensor_24_Hm",
+    "sensor_24_Q_epanet",
+    "sensor_24_Q1",
+    "sensor_24_Q2",
+    "sensor_24_delta_H",
+    "sensor_24_delta_Q",
+    "sensor_24_leak_ratio",
+    "sensor_25_H_in",
+    "sensor_25_H_out",
+    "sensor_25_Hm",
+    "sensor_25_Q_epanet",
+    "sensor_25_Q1",
+    "sensor_25_Q2",
+    "sensor_25_delta_H",
+    "sensor_25_delta_Q",
+    "sensor_25_leak_ratio",
+    "sensor_26_H_in",
+    "sensor_26_H_out",
+    "sensor_26_Hm",
+    "sensor_26_Q_epanet",
+    "sensor_26_Q1",
+    "sensor_26_Q2",
+    "sensor_26_delta_H",
+    "sensor_26_delta_Q",
+    "sensor_26_leak_ratio",
+    "sensor_27_H_in",
+    "sensor_27_H_out",
+    "sensor_27_Hm",
+    "sensor_27_Q_epanet",
+    "sensor_27_Q1",
+    "sensor_27_Q2",
+    "sensor_27_delta_H",
+    "sensor_27_delta_Q",
+    "sensor_27_leak_ratio",
+    "sensor_28_H_in",
+    "sensor_28_H_out",
+    "sensor_28_Hm",
+    "sensor_28_Q_epanet",
+    "sensor_28_Q1",
+    "sensor_28_Q2",
+    "sensor_28_delta_H",
+    "sensor_28_delta_Q",
+    "sensor_28_leak_ratio",
+    "sensor_29_H_in",
+    "sensor_29_H_out",
+    "sensor_29_Hm",
+    "sensor_29_Q_epanet",
+    "sensor_29_Q1",
+    "sensor_29_Q2",
+    "sensor_29_delta_H",
+    "sensor_29_delta_Q",
+    "sensor_29_leak_ratio",
+    "sensor_30_H_in",
+    "sensor_30_H_out",
+    "sensor_30_Hm",
+    "sensor_30_Q_epanet",
+    "sensor_30_Q1",
+    "sensor_30_Q2",
+    "sensor_30_delta_H",
+    "sensor_30_delta_Q",
+    "sensor_30_leak_ratio",
+    "sensor_31_H_in",
+    "sensor_31_H_out",
+    "sensor_31_Hm",
+    "sensor_31_Q_epanet",
+    "sensor_31_Q1",
+    "sensor_31_Q2",
+    "sensor_31_delta_H",
+    "sensor_31_delta_Q",
+    "sensor_31_leak_ratio",
+    "sensor_32_H_in",
+    "sensor_32_H_out",
+    "sensor_32_Hm",
+    "sensor_32_Q_epanet",
+    "sensor_32_Q1",
+    "sensor_32_Q2",
+    "sensor_32_delta_H",
+    "sensor_32_delta_Q",
+    "sensor_32_leak_ratio",
+    "sensor_33_H_in",
+    "sensor_33_H_out",
+    "sensor_33_Hm",
+    "sensor_33_Q_epanet",
+    "sensor_33_Q1",
+    "sensor_33_Q2",
+    "sensor_33_delta_H",
+    "sensor_33_delta_Q",
+    "sensor_33_leak_ratio",
+    "sensor_34_H_in",
+    "sensor_34_H_out",
+    "sensor_34_Hm",
+    "sensor_34_Q_epanet",
+    "sensor_34_Q1",
+    "sensor_34_Q2",
+    "sensor_34_delta_H",
+    "sensor_34_delta_Q",
+    "sensor_34_leak_ratio",
+    "total_Q_leak",
+    "total_abs_Q_epanet",
+    "total_abs_Q1",
+    "total_abs_Q2",
+    "mean_abs_delta_H",
+    "mean_abs_delta_Q",
+    "mean_Hm",
+    "std_Hm",
+    "leak_share_Q_epanet",
+    "leak_share_Q1",
+    "leak_share_Q2"
+  ],
+  "feature_importances": [
+    {
+      "feature_index": 273,
+      "feature_name": "sensor_31_Q_epanet",
+      "importance": 0.23103767044929707
+    },
+    {
+      "feature_index": 274,
+      "feature_name": "sensor_31_Q1",
+      "importance": 0.21445486994093513
+    },
+    {
+      "feature_index": 278,
+      "feature_name": "sensor_31_leak_ratio",
+      "importance": 0.14157809773163219
+    },
+    {
+      "feature_index": 276,
+      "feature_name": "sensor_31_delta_H",
+      "importance": 0.12590620365987157
+    },
+    {
+      "feature_index": 277,
+      "feature_name": "sensor_31_delta_Q",
+      "importance": 0.11584030212002713
+    },
+    {
+      "feature_index": 188,
+      "feature_name": "sensor_21_leak_ratio",
+      "importance": 0.004103801024946782
+    },
+    {
+      "feature_index": 269,
+      "feature_name": "sensor_30_leak_ratio",
+      "importance": 0.003913933703968306
+    },
+    {
+      "feature_index": 268,
+      "feature_name": "sensor_30_delta_Q",
+      "importance": 0.0031453737403479573
+    },
+    {
+      "feature_index": 44,
+      "feature_name": "sensor_5_leak_ratio",
+      "importance": 0.0031050580766020766
+    },
+    {
+      "feature_index": 55,
+      "feature_name": "sensor_7_H_out",
+      "importance": 0.003038412239414192
+    },
+    {
+      "feature_index": 215,
+      "feature_name": "sensor_24_leak_ratio",
+      "importance": 0.0029613612001509362
+    },
+    {
+      "feature_index": 140,
+      "feature_name": "sensor_16_Q2",
+      "importance": 0.0029214528115744237
+    },
+    {
+      "feature_index": 271,
+      "feature_name": "sensor_31_H_out",
+      "importance": 0.0028884097004610657
+    },
+    {
+      "feature_index": 109,
+      "feature_name": "sensor_13_H_out",
+      "importance": 0.002839456465975164
+    },
+    {
+      "feature_index": 117,
+      "feature_name": "sensor_14_H_in",
+      "importance": 0.0027892388393144707
+    },
+    {
+      "feature_index": 191,
+      "feature_name": "sensor_22_Hm",
+      "importance": 0.002498315624822435
+    },
+    {
+      "feature_index": 108,
+      "feature_name": "sensor_13_H_in",
+      "importance": 0.002444364979988598
+    },
+    {
+      "feature_index": 52,
+      "feature_name": "sensor_6_delta_Q",
+      "importance": 0.002263210001797754
+    },
+    {
+      "feature_index": 223,
+      "feature_name": "sensor_25_delta_Q",
+      "importance": 0.002151178380904938
+    },
+    {
+      "feature_index": 53,
+      "feature_name": "sensor_6_leak_ratio",
+      "importance": 0.0021313444855119382
+    },
+    {
+      "feature_index": 60,
+      "feature_name": "sensor_7_delta_H",
+      "importance": 0.0020796066253474283
+    },
+    {
+      "feature_index": 100,
+      "feature_name": "sensor_12_H_out",
+      "importance": 0.0020571393204900606
+    },
+    {
+      "feature_index": 207,
+      "feature_name": "sensor_24_H_in",
+      "importance": 0.0020424854592206217
+    },
+    {
+      "feature_index": 189,
+      "feature_name": "sensor_22_H_in",
+      "importance": 0.0020408588572899617
+    },
+    {
+      "feature_index": 92,
+      "feature_name": "sensor_11_Hm",
+      "importance": 0.0020196469610788167
+    },
+    {
+      "feature_index": 47,
+      "feature_name": "sensor_6_Hm",
+      "importance": 0.0020141484811162375
+    },
+    {
+      "feature_index": 143,
+      "feature_name": "sensor_16_leak_ratio",
+      "importance": 0.0019799266875509198
+    },
+    {
+      "feature_index": 204,
+      "feature_name": "sensor_23_delta_H",
+      "importance": 0.001971834355885326
+    },
+    {
+      "feature_index": 220,
+      "feature_name": "sensor_25_Q1",
+      "importance": 0.001934253934834626
+    },
+    {
+      "feature_index": 95,
+      "feature_name": "sensor_11_Q2",
+      "importance": 0.0019302812834059734
+    },
+    {
+      "feature_index": 124,
+      "feature_name": "sensor_14_delta_Q",
+      "importance": 0.001921378147366231
+    },
+    {
+      "feature_index": 12,
+      "feature_name": "sensor_2_Q_epanet",
+      "importance": 0.0018541860864723907
+    },
+    {
+      "feature_index": 116,
+      "feature_name": "sensor_13_leak_ratio",
+      "importance": 0.0018515234226437094
+    },
+    {
+      "feature_index": 266,
+      "feature_name": "sensor_30_Q2",
+      "importance": 0.0018204216469778246
+    },
+    {
+      "feature_index": 45,
+      "feature_name": "sensor_6_H_in",
+      "importance": 0.0018168450650131863
+    },
+    {
+      "feature_index": 28,
+      "feature_name": "sensor_4_H_out",
+      "importance": 0.0018151297577428482
+    },
+    {
+      "feature_index": 103,
+      "feature_name": "sensor_12_Q1",
+      "importance": 0.001807623761450554
+    },
+    {
+      "feature_index": 37,
+      "feature_name": "sensor_5_H_out",
+      "importance": 0.0017434279776692354
+    },
+    {
+      "feature_index": 63,
+      "feature_name": "sensor_8_H_in",
+      "importance": 0.0017064000319886258
+    },
+    {
+      "feature_index": 196,
+      "feature_name": "sensor_22_delta_Q",
+      "importance": 0.0016868764909982682
+    },
+    {
+      "feature_index": 205,
+      "feature_name": "sensor_23_delta_Q",
+      "importance": 0.0016400914427181232
+    },
+    {
+      "feature_index": 212,
+      "feature_name": "sensor_24_Q2",
+      "importance": 0.0016383084712775003
+    },
+    {
+      "feature_index": 5,
+      "feature_name": "sensor_1_Q2",
+      "importance": 0.001600332327089096
+    },
+    {
+      "feature_index": 199,
+      "feature_name": "sensor_23_H_out",
+      "importance": 0.0015697025569002003
+    },
+    {
+      "feature_index": 244,
+      "feature_name": "sensor_28_H_out",
+      "importance": 0.0015258324476823304
+    },
+    {
+      "feature_index": 111,
+      "feature_name": "sensor_13_Q_epanet",
+      "importance": 0.0015091141145493663
+    },
+    {
+      "feature_index": 76,
+      "feature_name": "sensor_9_Q1",
+      "importance": 0.0015022341323586974
+    },
+    {
+      "feature_index": 164,
+      "feature_name": "sensor_19_Hm",
+      "importance": 0.0014976394957269597
+    },
+    {
+      "feature_index": 245,
+      "feature_name": "sensor_28_Hm",
+      "importance": 0.0014446766023648904
+    },
+    {
+      "feature_index": 39,
+      "feature_name": "sensor_5_Q_epanet",
+      "importance": 0.0014256752026503006
+    },
+    {
+      "feature_index": 132,
+      "feature_name": "sensor_15_delta_H",
+      "importance": 0.0014192470318291272
+    },
+    {
+      "feature_index": 29,
+      "feature_name": "sensor_4_Hm",
+      "importance": 0.0013980894119671036
+    },
+    {
+      "feature_index": 213,
+      "feature_name": "sensor_24_delta_H",
+      "importance": 0.001397257428216255
+    },
+    {
+      "feature_index": 141,
+      "feature_name": "sensor_16_delta_H",
+      "importance": 0.00139120222668944
+    },
+    {
+      "feature_index": 234,
+      "feature_name": "sensor_27_H_in",
+      "importance": 0.0013569188899843559
+    },
+    {
+      "feature_index": 247,
+      "feature_name": "sensor_28_Q1",
+      "importance": 0.0013547722164547731
+    },
+    {
+      "feature_index": 68,
+      "feature_name": "sensor_8_Q2",
+      "importance": 0.0013234851483672498
+    },
+    {
+      "feature_index": 125,
+      "feature_name": "sensor_14_leak_ratio",
+      "importance": 0.0012989966970725177
+    },
+    {
+      "feature_index": 197,
+      "feature_name": "sensor_22_leak_ratio",
+      "importance": 0.0012948859379032442
+    },
+    {
+      "feature_index": 23,
+      "feature_name": "sensor_3_Q2",
+      "importance": 0.0012864182358698355
+    },
+    {
+      "feature_index": 194,
+      "feature_name": "sensor_22_Q2",
+      "importance": 0.0012489502952146788
+    },
+    {
+      "feature_index": 236,
+      "feature_name": "sensor_27_Hm",
+      "importance": 0.001248933947459137
+    },
+    {
+      "feature_index": 21,
+      "feature_name": "sensor_3_Q_epanet",
+      "importance": 0.0011657902181745198
+    },
+    {
+      "feature_index": 255,
+      "feature_name": "sensor_29_Q_epanet",
+      "importance": 0.0011648840439301442
+    },
+    {
+      "feature_index": 221,
+      "feature_name": "sensor_25_Q2",
+      "importance": 0.0011619738115863025
+    },
+    {
+      "feature_index": 228,
+      "feature_name": "sensor_26_Q_epanet",
+      "importance": 0.0011442278704633707
+    },
+    {
+      "feature_index": 4,
+      "feature_name": "sensor_1_Q1",
+      "importance": 0.0011427314085848345
+    },
+    {
+      "feature_index": 165,
+      "feature_name": "sensor_19_Q_epanet",
+      "importance": 0.0011414583796770055
+    },
+    {
+      "feature_index": 84,
+      "feature_name": "sensor_10_Q_epanet",
+      "importance": 0.0011391803719419558
+    },
+    {
+      "feature_index": 101,
+      "feature_name": "sensor_12_Hm",
+      "importance": 0.0011374646037986644
+    },
+    {
+      "feature_index": 159,
+      "feature_name": "sensor_18_delta_H",
+      "importance": 0.0011042860057561806
+    },
+    {
+      "feature_index": 79,
+      "feature_name": "sensor_9_delta_Q",
+      "importance": 0.001101407241478407
+    },
+    {
+      "feature_index": 183,
+      "feature_name": "sensor_21_Q_epanet",
+      "importance": 0.0010779408367373707
+    },
+    {
+      "feature_index": 151,
+      "feature_name": "sensor_17_delta_Q",
+      "importance": 0.0010731586843071108
+    },
+    {
+      "feature_index": 15,
+      "feature_name": "sensor_2_delta_H",
+      "importance": 0.0010712356108085947
+    },
+    {
+      "feature_index": 239,
+      "feature_name": "sensor_27_Q2",
+      "importance": 0.0010612543817302296
+    },
+    {
+      "feature_index": 149,
+      "feature_name": "sensor_17_Q2",
+      "importance": 0.001044460502905225
+    },
+    {
+      "feature_index": 85,
+      "feature_name": "sensor_10_Q1",
+      "importance": 0.001041559454724244
+    },
+    {
+      "feature_index": 77,
+      "feature_name": "sensor_9_Q2",
+      "importance": 0.0010232669504292359
+    },
+    {
+      "feature_index": 69,
+      "feature_name": "sensor_8_delta_H",
+      "importance": 0.001020471742159564
+    },
+    {
+      "feature_index": 31,
+      "feature_name": "sensor_4_Q1",
+      "importance": 0.0010016988778542065
+    },
+    {
+      "feature_index": 186,
+      "feature_name": "sensor_21_delta_H",
+      "importance": 0.0010009540330337457
+    },
+    {
+      "feature_index": 133,
+      "feature_name": "sensor_15_delta_Q",
+      "importance": 0.000997640826563424
+    },
+    {
+      "feature_index": 146,
+      "feature_name": "sensor_17_Hm",
+      "importance": 0.0009881283789686913
+    },
+    {
+      "feature_index": 229,
+      "feature_name": "sensor_26_Q1",
+      "importance": 0.0009845762314683966
+    },
+    {
+      "feature_index": 119,
+      "feature_name": "sensor_14_Hm",
+      "importance": 0.0009715293581707388
+    },
+    {
+      "feature_index": 93,
+      "feature_name": "sensor_11_Q_epanet",
+      "importance": 0.0009592256935821841
+    },
+    {
+      "feature_index": 180,
+      "feature_name": "sensor_21_H_in",
+      "importance": 0.0009428490891143967
+    },
+    {
+      "feature_index": 181,
+      "feature_name": "sensor_21_H_out",
+      "importance": 0.0009411369677085504
+    },
+    {
+      "feature_index": 237,
+      "feature_name": "sensor_27_Q_epanet",
+      "importance": 0.0009317423150200957
+    },
+    {
+      "feature_index": 252,
+      "feature_name": "sensor_29_H_in",
+      "importance": 0.0009181384001091755
+    },
+    {
+      "feature_index": 173,
+      "feature_name": "sensor_20_Hm",
+      "importance": 0.0008835432405430628
+    },
+    {
+      "feature_index": 156,
+      "feature_name": "sensor_18_Q_epanet",
+      "importance": 0.0008752758455772288
+    },
+    {
+      "feature_index": 127,
+      "feature_name": "sensor_15_H_out",
+      "importance": 0.0008747937320285924
+    },
+    {
+      "feature_index": 71,
+      "feature_name": "sensor_8_leak_ratio",
+      "importance": 0.0008742944619241253
+    },
+    {
+      "feature_index": 242,
+      "feature_name": "sensor_27_leak_ratio",
+      "importance": 0.0008680936592433366
+    },
+    {
+      "feature_index": 20,
+      "feature_name": "sensor_3_Hm",
+      "importance": 0.0008587570275644055
+    },
+    {
+      "feature_index": 167,
+      "feature_name": "sensor_19_Q2",
+      "importance": 0.0008511139020200218
+    },
+    {
+      "feature_index": 261,
+      "feature_name": "sensor_30_H_in",
+      "importance": 0.0008270687877686101
+    },
+    {
+      "feature_index": 231,
+      "feature_name": "sensor_26_delta_H",
+      "importance": 0.0008054932095099839
+    },
+    {
+      "feature_index": 157,
+      "feature_name": "sensor_18_Q1",
+      "importance": 0.0008028233861288656
+    },
+    {
+      "feature_index": 210,
+      "feature_name": "sensor_24_Q_epanet",
+      "importance": 0.0007970735302049054
+    },
+    {
+      "feature_index": 26,
+      "feature_name": "sensor_3_leak_ratio",
+      "importance": 0.0007903658721362352
+    },
+    {
+      "feature_index": 135,
+      "feature_name": "sensor_16_H_in",
+      "importance": 0.0007691184672601823
+    },
+    {
+      "feature_index": 172,
+      "feature_name": "sensor_20_H_out",
+      "importance": 0.000759993527904844
+    },
+    {
+      "feature_index": 61,
+      "feature_name": "sensor_7_delta_Q",
+      "importance": 0.0007028166551004597
+    },
+    {
+      "feature_index": 148,
+      "feature_name": "sensor_17_Q1",
+      "importance": 0.0006889519474651543
+    },
+    {
+      "feature_index": 36,
+      "feature_name": "sensor_5_H_in",
+      "importance": 0.0006841123439646537
+    },
+    {
+      "feature_index": 226,
+      "feature_name": "sensor_26_H_out",
+      "importance": 0.0006804883913131407
+    },
+    {
+      "feature_index": 106,
+      "feature_name": "sensor_12_delta_Q",
+      "importance": 0.000660881442204527
+    },
+    {
+      "feature_index": 260,
+      "feature_name": "sensor_29_leak_ratio",
+      "importance": 0.0006586720305894836
+    },
+    {
+      "feature_index": 98,
+      "feature_name": "sensor_11_leak_ratio",
+      "importance": 0.0006535345425987171
+    },
+    {
+      "feature_index": 13,
+      "feature_name": "sensor_2_Q1",
+      "importance": 0.0006535141298149116
+    },
+    {
+      "feature_index": 253,
+      "feature_name": "sensor_29_H_out",
+      "importance": 0.0006271056479569092
+    },
+    {
+      "feature_index": 170,
+      "feature_name": "sensor_19_leak_ratio",
+      "importance": 0.0006269123998863202
+    },
+    {
+      "feature_index": 138,
+      "feature_name": "sensor_16_Q_epanet",
+      "importance": 0.0006137665646954443
+    },
+    {
+      "feature_index": 7,
+      "feature_name": "sensor_1_delta_Q",
+      "importance": 0.0005953459829814692
+    },
+    {
+      "feature_index": 10,
+      "feature_name": "sensor_2_H_out",
+      "importance": 0.0005771374096882729
+    },
+    {
+      "feature_index": 162,
+      "feature_name": "sensor_19_H_in",
+      "importance": 0.0005734986493287249
+    },
+    {
+      "feature_index": 178,
+      "feature_name": "sensor_20_delta_Q",
+      "importance": 0.0005245403806309619
+    },
+    {
+      "feature_index": 50,
+      "feature_name": "sensor_6_Q2",
+      "importance": 0.0005228834573069411
+    },
+    {
+      "feature_index": 2,
+      "feature_name": "sensor_1_Hm",
+      "importance": 0.0004982933589254468
+    },
+    {
+      "feature_index": 263,
+      "feature_name": "sensor_30_Hm",
+      "importance": 0.00047968898265166737
+    },
+    {
+      "feature_index": 250,
+      "feature_name": "sensor_28_delta_Q",
+      "importance": 0.0004665671683149037
+    },
+    {
+      "feature_index": 175,
+      "feature_name": "sensor_20_Q1",
+      "importance": 0.0004536337800023239
+    },
+    {
+      "feature_index": 87,
+      "feature_name": "sensor_10_delta_H",
+      "importance": 0.00045218094585001414
+    },
+    {
+      "feature_index": 66,
+      "feature_name": "sensor_8_Q_epanet",
+      "importance": 0.0004414130298468503
+    },
+    {
+      "feature_index": 154,
+      "feature_name": "sensor_18_H_out",
+      "importance": 0.0004412101952884749
+    },
+    {
+      "feature_index": 42,
+      "feature_name": "sensor_5_delta_H",
+      "importance": 0.0004400210959655525
+    },
+    {
+      "feature_index": 58,
+      "feature_name": "sensor_7_Q1",
+      "importance": 0.00040788856321037143
+    },
+    {
+      "feature_index": 74,
+      "feature_name": "sensor_9_Hm",
+      "importance": 0.00034877518133537066
+    },
+    {
+      "feature_index": 122,
+      "feature_name": "sensor_14_Q2",
+      "importance": 0.00027787973668334174
+    },
+    {
+      "feature_index": 34,
+      "feature_name": "sensor_4_delta_Q",
+      "importance": 0.0002488590751735391
+    },
+    {
+      "feature_index": 258,
+      "feature_name": "sensor_29_delta_H",
+      "importance": 0.00024342706864417522
+    },
+    {
+      "feature_index": 90,
+      "feature_name": "sensor_11_H_in",
+      "importance": 0.00022871675292774113
+    },
+    {
+      "feature_index": 218,
+      "feature_name": "sensor_25_Hm",
+      "importance": 0.00021987132674206603
+    },
+    {
+      "feature_index": 18,
+      "feature_name": "sensor_3_H_in",
+      "importance": 0.00020165361174614795
+    },
+    {
+      "feature_index": 130,
+      "feature_name": "sensor_15_Q1",
+      "importance": 0.00019207254910357562
+    },
+    {
+      "feature_index": 202,
+      "feature_name": "sensor_23_Q1",
+      "importance": 0.00018852193592159148
+    },
+    {
+      "feature_index": 82,
+      "feature_name": "sensor_10_H_out",
+      "importance": 8.057534030075991e-05
+    },
+    {
+      "feature_index": 114,
+      "feature_name": "sensor_13_delta_H",
+      "importance": 7.359359280699566e-05
+    },
+    {
+      "feature_index": 0,
+      "feature_name": "sensor_1_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 1,
+      "feature_name": "sensor_1_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 3,
+      "feature_name": "sensor_1_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 6,
+      "feature_name": "sensor_1_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 8,
+      "feature_name": "sensor_1_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 9,
+      "feature_name": "sensor_2_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 11,
+      "feature_name": "sensor_2_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 14,
+      "feature_name": "sensor_2_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 16,
+      "feature_name": "sensor_2_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 17,
+      "feature_name": "sensor_2_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 19,
+      "feature_name": "sensor_3_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 22,
+      "feature_name": "sensor_3_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 24,
+      "feature_name": "sensor_3_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 25,
+      "feature_name": "sensor_3_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 27,
+      "feature_name": "sensor_4_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 30,
+      "feature_name": "sensor_4_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 32,
+      "feature_name": "sensor_4_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 33,
+      "feature_name": "sensor_4_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 35,
+      "feature_name": "sensor_4_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 38,
+      "feature_name": "sensor_5_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 40,
+      "feature_name": "sensor_5_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 41,
+      "feature_name": "sensor_5_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 43,
+      "feature_name": "sensor_5_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 46,
+      "feature_name": "sensor_6_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 48,
+      "feature_name": "sensor_6_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 49,
+      "feature_name": "sensor_6_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 51,
+      "feature_name": "sensor_6_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 54,
+      "feature_name": "sensor_7_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 56,
+      "feature_name": "sensor_7_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 57,
+      "feature_name": "sensor_7_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 59,
+      "feature_name": "sensor_7_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 62,
+      "feature_name": "sensor_7_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 64,
+      "feature_name": "sensor_8_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 65,
+      "feature_name": "sensor_8_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 67,
+      "feature_name": "sensor_8_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 70,
+      "feature_name": "sensor_8_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 72,
+      "feature_name": "sensor_9_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 73,
+      "feature_name": "sensor_9_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 75,
+      "feature_name": "sensor_9_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 78,
+      "feature_name": "sensor_9_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 80,
+      "feature_name": "sensor_9_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 81,
+      "feature_name": "sensor_10_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 83,
+      "feature_name": "sensor_10_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 86,
+      "feature_name": "sensor_10_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 88,
+      "feature_name": "sensor_10_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 89,
+      "feature_name": "sensor_10_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 91,
+      "feature_name": "sensor_11_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 94,
+      "feature_name": "sensor_11_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 96,
+      "feature_name": "sensor_11_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 97,
+      "feature_name": "sensor_11_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 99,
+      "feature_name": "sensor_12_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 102,
+      "feature_name": "sensor_12_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 104,
+      "feature_name": "sensor_12_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 105,
+      "feature_name": "sensor_12_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 107,
+      "feature_name": "sensor_12_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 110,
+      "feature_name": "sensor_13_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 112,
+      "feature_name": "sensor_13_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 113,
+      "feature_name": "sensor_13_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 115,
+      "feature_name": "sensor_13_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 118,
+      "feature_name": "sensor_14_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 120,
+      "feature_name": "sensor_14_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 121,
+      "feature_name": "sensor_14_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 123,
+      "feature_name": "sensor_14_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 126,
+      "feature_name": "sensor_15_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 128,
+      "feature_name": "sensor_15_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 129,
+      "feature_name": "sensor_15_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 131,
+      "feature_name": "sensor_15_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 134,
+      "feature_name": "sensor_15_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 136,
+      "feature_name": "sensor_16_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 137,
+      "feature_name": "sensor_16_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 139,
+      "feature_name": "sensor_16_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 142,
+      "feature_name": "sensor_16_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 144,
+      "feature_name": "sensor_17_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 145,
+      "feature_name": "sensor_17_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 147,
+      "feature_name": "sensor_17_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 150,
+      "feature_name": "sensor_17_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 152,
+      "feature_name": "sensor_17_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 153,
+      "feature_name": "sensor_18_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 155,
+      "feature_name": "sensor_18_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 158,
+      "feature_name": "sensor_18_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 160,
+      "feature_name": "sensor_18_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 161,
+      "feature_name": "sensor_18_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 163,
+      "feature_name": "sensor_19_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 166,
+      "feature_name": "sensor_19_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 168,
+      "feature_name": "sensor_19_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 169,
+      "feature_name": "sensor_19_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 171,
+      "feature_name": "sensor_20_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 174,
+      "feature_name": "sensor_20_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 176,
+      "feature_name": "sensor_20_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 177,
+      "feature_name": "sensor_20_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 179,
+      "feature_name": "sensor_20_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 182,
+      "feature_name": "sensor_21_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 184,
+      "feature_name": "sensor_21_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 185,
+      "feature_name": "sensor_21_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 187,
+      "feature_name": "sensor_21_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 190,
+      "feature_name": "sensor_22_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 192,
+      "feature_name": "sensor_22_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 193,
+      "feature_name": "sensor_22_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 195,
+      "feature_name": "sensor_22_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 198,
+      "feature_name": "sensor_23_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 200,
+      "feature_name": "sensor_23_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 201,
+      "feature_name": "sensor_23_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 203,
+      "feature_name": "sensor_23_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 206,
+      "feature_name": "sensor_23_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 208,
+      "feature_name": "sensor_24_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 209,
+      "feature_name": "sensor_24_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 211,
+      "feature_name": "sensor_24_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 214,
+      "feature_name": "sensor_24_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 216,
+      "feature_name": "sensor_25_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 217,
+      "feature_name": "sensor_25_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 219,
+      "feature_name": "sensor_25_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 222,
+      "feature_name": "sensor_25_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 224,
+      "feature_name": "sensor_25_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 225,
+      "feature_name": "sensor_26_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 227,
+      "feature_name": "sensor_26_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 230,
+      "feature_name": "sensor_26_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 232,
+      "feature_name": "sensor_26_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 233,
+      "feature_name": "sensor_26_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 235,
+      "feature_name": "sensor_27_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 238,
+      "feature_name": "sensor_27_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 240,
+      "feature_name": "sensor_27_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 241,
+      "feature_name": "sensor_27_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 243,
+      "feature_name": "sensor_28_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 246,
+      "feature_name": "sensor_28_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 248,
+      "feature_name": "sensor_28_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 249,
+      "feature_name": "sensor_28_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 251,
+      "feature_name": "sensor_28_leak_ratio",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 254,
+      "feature_name": "sensor_29_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 256,
+      "feature_name": "sensor_29_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 257,
+      "feature_name": "sensor_29_Q2",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 259,
+      "feature_name": "sensor_29_delta_Q",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 262,
+      "feature_name": "sensor_30_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 264,
+      "feature_name": "sensor_30_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 265,
+      "feature_name": "sensor_30_Q1",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 267,
+      "feature_name": "sensor_30_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 270,
+      "feature_name": "sensor_31_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 272,
+      "feature_name": "sensor_31_Hm",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 275,
+      "feature_name": "sensor_31_Q2",
+      "importance": 0.0
+    }
+  ],
+  "train": {
+    "classification_report": {
+      "0": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 630.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 630.0
+      },
+      "2": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 630.0
+      },
+      "3": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 630.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 2520.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 2520.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        630,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        630,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        630,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        630
+      ]
+    ]
+  },
+  "val": {
+    "classification_report": {
+      "0": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "2": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "3": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 540.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 540.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        135,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        135,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        135,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        135
+      ]
+    ]
+  },
+  "test": {
+    "classification_report": {
+      "0": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "2": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "3": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 540.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 540.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        135,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        135,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        135,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        135
+      ]
+    ]
+  }
+}

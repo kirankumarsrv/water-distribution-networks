@@ -16,7 +16,8 @@ Modular project structure for EPANET-based leak simulation, physical pipe modeli
 - `integration/` — EPANET integration and leak scenario generation
 - `graph_dataset/` — dataset creation and split logic using `2_Extended Hanoi.inp`
 - `DATASETS/` — generated numpy and PyTorch dataset files
-- `models/` — trained model artifacts and metric summaries
+- `models/` — training code and root model artifacts
+- `models/extended_hanoi/` — trained Extended Hanoi production models, metrics, and model notes
 - `inference/` — real-time detector class and CLI entrypoint
 - `notebooks/` — analysis notebook stubs and performance reports
 
@@ -39,6 +40,7 @@ Modular project structure for EPANET-based leak simulation, physical pipe modeli
 - `models/baseline_pressure_model.json` — baseline pressure lookup for inference
 - `models/leak_detection_metrics.json` — Objective 2 metrics
 - `models/localization_metrics.json` — Objective 3 metrics
+- `models/extended_hanoi/` — dedicated Extended Hanoi trained models, metrics, and notes
 
 ## Usage
 
@@ -77,9 +79,9 @@ source .venv/bin/activate
 python models/convert_classification_pt_to_numpy.py --pt-path DATASETS/classification_B.pt --out-dir DATASETS
 ```
 
-Example end-to-end sample generation and detection/localisation:
+Example end-to-end sample generation and detection/localisation using the Extended Hanoi trained models:
 
 ```bash
 source .venv/bin/activate
-python inference/example_end_to_end.py --scenario leak --models-dir models
+python inference/example_end_to_end.py --scenario leak --models-dir models/extended_hanoi
 ```
