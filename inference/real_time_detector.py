@@ -30,11 +30,38 @@ class RealTimeLeakDetector:
         self.zone_model = joblib.load(self.models_dir / "stage2_zone_classifier.pkl")
         self.baseline = BaselinePressureModel.load_json(self.models_dir / "baseline_pressure_model.json")
 
+        self._detection_feature_names = self._load_feature_names(ROOT_DIR / "DATASETS" / "feature_names_no_leak.json")
+        self._localization_feature_names = self._load_feature_names(ROOT_DIR / "DATASETS" / "localization_feature_names_no_leak.json")
+
+    def _load_feature_names(self, path: Path) -> list[str] | None:
+        if path.exists():
+            try:
+                with path.open("r", encoding="utf-8") as handle:
+                    return json.load(handle)
+            except Exception:
+                return None
+        return None
+
+    @staticmethod
+    def _filter_feature_vector(features: np.ndarray, feature_names: list[str], keep_names: list[str]) -> np.ndarray:
+        if len(features) != len(feature_names):
+            raise ValueError("Feature vector length does not match feature names length")
+        keep_indices = [idx for idx, name in enumerate(feature_names) if name in keep_names]
+        return features[keep_indices]
+
     def extract_detection_features(self, sample_df: pd.DataFrame) -> np.ndarray:
-        return FeatureExtractor.build_detection_features(sample_df)
+        features = FeatureExtractor.build_detection_features(sample_df)
+        if self._detection_feature_names is not None:
+            names = FeatureExtractor.get_feature_names(sensor_count=len(sample_df))
+            return self._filter_feature_vector(features, names, self._detection_feature_names)
+        return features
 
     def extract_localization_features(self, sample_df: pd.DataFrame) -> np.ndarray:
-        return LocalizationFeatureExtractor.build_localization_features(sample_df, baseline_hm=self.baseline.to_dict())
+        features = LocalizationFeatureExtractor.build_localization_features(sample_df, baseline_hm=self.baseline.to_dict())
+        if self._localization_feature_names is not None:
+            names = LocalizationFeatureExtractor.get_feature_names(sensor_count=len(sample_df))
+            return self._filter_feature_vector(features, names, self._localization_feature_names)
+        return features
 
     def detect(self, sample_df: pd.DataFrame) -> Dict[str, Any]:
         x = self.extract_detection_features(sample_df).reshape(1, -1)
@@ -51,9 +78,24 @@ class RealTimeLeakDetector:
 
     def localize(self, sample_df: pd.DataFrame) -> Dict[str, Any]:
         x = self.extract_localization_features(sample_df).reshape(1, -1)
-        zone_id = int(self.zone_model.predict(x)[0])
-        proba = float(np.max(self.zone_model.predict_proba(x))) if hasattr(self.zone_model, "predict_proba") else 1.0
-        return {"zone_id": zone_id, "zone_confidence": proba}
+        prediction = self.zone_model.predict(x)[0]
+        zone_id = int(prediction)
+        proba = self.zone_model.predict_proba(x)[0] if hasattr(self.zone_model, "predict_proba") else None
+        if proba is None:
+            return {"zone_id": zone_id, "zone_confidence": 1.0, "top_zones": [{"zone_id": zone_id, "probability": 1.0}]}
+
+        classes = self.zone_model.classes_
+        zone_probs = [float(p) for p in proba]
+        sorted_indices = list(np.argsort(zone_probs)[::-1])
+        top_zones = [
+            {"zone_id": int(classes[i]), "probability": zone_probs[i]}
+            for i in sorted_indices
+        ]
+        return {
+            "zone_id": zone_id,
+            "zone_confidence": float(np.max(zone_probs)),
+            "top_zones": top_zones,
+        }
 
     def infer(self, sample_df: pd.DataFrame) -> Dict[str, Any]:
         detection = self.detect(sample_df)

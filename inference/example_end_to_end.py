@@ -19,7 +19,7 @@ from physics.PipeModel import PipeLeakModel
 from inference.real_time_detector import RealTimeLeakDetector
 
 
-def build_sample_df(inp_file: str, scenario: str, target_pipe: str | None = None) -> pd.DataFrame:
+def build_sample_df(inp_file: str, scenario: str, target_pipe: str | list[str] | list[dict[str, str]] | None = None) -> pd.DataFrame:
     integrator = EPANETIntegrator(inp_file)
     integrator.run_simulation()
     heads = integrator.results.node["head"]
@@ -30,11 +30,31 @@ def build_sample_df(inp_file: str, scenario: str, target_pipe: str | None = None
     if len(all_pipes) == 0:
         raise RuntimeError("No pipe links found in the network")
 
-    if scenario != "normal":
-        if not target_pipe:
-            target_pipe = random.choice(all_pipes)
-        if target_pipe not in all_pipes:
-            raise ValueError(f"Target pipe '{target_pipe}' not found in network")
+    target_pipes: list[dict[str, str]] | None = None
+    if isinstance(target_pipe, str):
+        target_pipes = [{"pipe": target_pipe, "scenario": scenario}]
+    elif isinstance(target_pipe, list):
+        if all(isinstance(pipe, str) for pipe in target_pipe):
+            target_pipes = [{"pipe": str(pipe), "scenario": scenario} for pipe in target_pipe]
+        else:
+            target_pipes = []
+            for entry in target_pipe:
+                if not isinstance(entry, dict):
+                    raise ValueError("Each target_pipe entry must be a string or a dict with pipe and scenario")
+                pipe_id = entry.get("pipe")
+                if pipe_id is None:
+                    raise ValueError("Each fault entry must include a 'pipe' key")
+                target_pipes.append({"pipe": str(pipe_id), "scenario": str(entry.get("scenario", scenario))})
+    else:
+        target_pipes = None
+
+    if scenario != "normal" and (target_pipes is None or not target_pipes):
+        target_pipes = [{"pipe": random.choice(all_pipes), "scenario": scenario}]
+
+    if target_pipes:
+        for entry in target_pipes:
+            if entry["pipe"] not in all_pipes:
+                raise ValueError(f"Target pipe '{entry['pipe']}' not found in network")
 
     rows = []
     for pipe_name, pipe in integrator.wn.links():
@@ -64,40 +84,39 @@ def build_sample_df(inp_file: str, scenario: str, target_pipe: str | None = None
         if not (f > 0 and float(f) != float("inf")):
             f = 0.02
 
-        if scenario == "normal":
+        fault = None
+        if target_pipes is not None:
+            for entry in target_pipes:
+                if entry["pipe"] == pipe_name:
+                    fault = entry
+                    break
+
+        if fault is None:
             A_leak = 0.0
             Cd = 0.0
             x_leak = L / 2
             blocked = False
-        elif scenario == "leak":
-            if pipe_name == target_pipe:
-                A_leak = random.uniform(1e-8, 5e-7) * (D ** 2)
-                Cd = random.uniform(0.60, 0.80)
-                x_leak = random.uniform(0.05 * L, 0.95 * L)
-            else:
-                A_leak = 0.0
-                Cd = 0.0
-                x_leak = L / 2
+        elif fault["scenario"] == "leak":
+            A_leak = random.uniform(1e-8, 5e-7) * (D ** 2)
+            Cd = random.uniform(0.60, 0.80)
+            x_leak = random.uniform(0.05 * L, 0.95 * L)
             blocked = False
-        elif scenario == "burst":
-            if pipe_name == target_pipe:
-                A_leak = random.uniform(1e-5, 5e-4) * (D ** 2)
-                Cd = random.uniform(0.8, 1.0)
-                x_leak = random.uniform(0.05 * L, 0.95 * L)
-            else:
-                A_leak = 0.0
-                Cd = 0.0
-                x_leak = L / 2
+        elif fault["scenario"] == "burst":
+            A_leak = random.uniform(1e-5, 5e-4) * (D ** 2)
+            Cd = random.uniform(0.8, 1.0)
+            x_leak = random.uniform(0.05 * L, 0.95 * L)
             blocked = False
+        elif fault["scenario"] == "blockage":
+            A_leak = 0.0
+            Cd = 0.0
+            x_leak = L / 2
+            f = f * random.uniform(5.0, 50.0)
+            blocked = True
         else:
-            if pipe_name == target_pipe:
-                f = f * random.uniform(5.0, 50.0)
-                blocked = True
-            else:
-                blocked = False
             A_leak = 0.0
             Cd = 0.0
             x_leak = L / 2
+            blocked = False
 
         pipe_model = PipeLeakModel(L=L, D=D, f=f, A_leak=A_leak, Cd=Cd, x_leak=x_leak)
         Q1, Q2, Q_leak, Hm = pipe_model.solve_model(H_in, H_out)

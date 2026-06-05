@@ -72,6 +72,15 @@ source .venv/bin/activate
 python inference/real_time_detector.py --sample sample.json
 ```
 
+Run the interactive leak dashboard:
+
+```bash
+source .venv/bin/activate
+python inference/dashboard.py
+```
+
+Then open `http://localhost:8000` in a browser.
+
 Convert the PyTorch classification dataset into NumPy files to avoid pickle loading issues:
 
 ```bash
