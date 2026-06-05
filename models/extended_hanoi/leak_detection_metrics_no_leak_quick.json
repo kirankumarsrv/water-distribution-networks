@@ -1,0 +1,1889 @@
+{
+  "model_type": "RandomForestClassifier",
+  "selected_model": "RandomForest",
+  "best_params": {
+    "n_estimators": 100,
+    "max_depth": 20,
+    "min_samples_leaf": 1,
+    "max_features": "sqrt"
+  },
+  "feature_names": [
+    "sensor_1_H_in",
+    "sensor_1_H_out",
+    "sensor_1_Hm",
+    "sensor_1_Q_epanet",
+    "sensor_1_Q1",
+    "sensor_1_Q2",
+    "sensor_1_delta_H",
+    "sensor_1_delta_Q",
+    "sensor_2_H_in",
+    "sensor_2_H_out",
+    "sensor_2_Hm",
+    "sensor_2_Q_epanet",
+    "sensor_2_Q1",
+    "sensor_2_Q2",
+    "sensor_2_delta_H",
+    "sensor_2_delta_Q",
+    "sensor_3_H_in",
+    "sensor_3_H_out",
+    "sensor_3_Hm",
+    "sensor_3_Q_epanet",
+    "sensor_3_Q1",
+    "sensor_3_Q2",
+    "sensor_3_delta_H",
+    "sensor_3_delta_Q",
+    "sensor_4_H_in",
+    "sensor_4_H_out",
+    "sensor_4_Hm",
+    "sensor_4_Q_epanet",
+    "sensor_4_Q1",
+    "sensor_4_Q2",
+    "sensor_4_delta_H",
+    "sensor_4_delta_Q",
+    "sensor_5_H_in",
+    "sensor_5_H_out",
+    "sensor_5_Hm",
+    "sensor_5_Q_epanet",
+    "sensor_5_Q1",
+    "sensor_5_Q2",
+    "sensor_5_delta_H",
+    "sensor_5_delta_Q",
+    "sensor_6_H_in",
+    "sensor_6_H_out",
+    "sensor_6_Hm",
+    "sensor_6_Q_epanet",
+    "sensor_6_Q1",
+    "sensor_6_Q2",
+    "sensor_6_delta_H",
+    "sensor_6_delta_Q",
+    "sensor_7_H_in",
+    "sensor_7_H_out",
+    "sensor_7_Hm",
+    "sensor_7_Q_epanet",
+    "sensor_7_Q1",
+    "sensor_7_Q2",
+    "sensor_7_delta_H",
+    "sensor_7_delta_Q",
+    "sensor_8_H_in",
+    "sensor_8_H_out",
+    "sensor_8_Hm",
+    "sensor_8_Q_epanet",
+    "sensor_8_Q1",
+    "sensor_8_Q2",
+    "sensor_8_delta_H",
+    "sensor_8_delta_Q",
+    "sensor_9_H_in",
+    "sensor_9_H_out",
+    "sensor_9_Hm",
+    "sensor_9_Q_epanet",
+    "sensor_9_Q1",
+    "sensor_9_Q2",
+    "sensor_9_delta_H",
+    "sensor_9_delta_Q",
+    "sensor_10_H_in",
+    "sensor_10_H_out",
+    "sensor_10_Hm",
+    "sensor_10_Q_epanet",
+    "sensor_10_Q1",
+    "sensor_10_Q2",
+    "sensor_10_delta_H",
+    "sensor_10_delta_Q",
+    "sensor_11_H_in",
+    "sensor_11_H_out",
+    "sensor_11_Hm",
+    "sensor_11_Q_epanet",
+    "sensor_11_Q1",
+    "sensor_11_Q2",
+    "sensor_11_delta_H",
+    "sensor_11_delta_Q",
+    "sensor_12_H_in",
+    "sensor_12_H_out",
+    "sensor_12_Hm",
+    "sensor_12_Q_epanet",
+    "sensor_12_Q1",
+    "sensor_12_Q2",
+    "sensor_12_delta_H",
+    "sensor_12_delta_Q",
+    "sensor_13_H_in",
+    "sensor_13_H_out",
+    "sensor_13_Hm",
+    "sensor_13_Q_epanet",
+    "sensor_13_Q1",
+    "sensor_13_Q2",
+    "sensor_13_delta_H",
+    "sensor_13_delta_Q",
+    "sensor_14_H_in",
+    "sensor_14_H_out",
+    "sensor_14_Hm",
+    "sensor_14_Q_epanet",
+    "sensor_14_Q1",
+    "sensor_14_Q2",
+    "sensor_14_delta_H",
+    "sensor_14_delta_Q",
+    "sensor_15_H_in",
+    "sensor_15_H_out",
+    "sensor_15_Hm",
+    "sensor_15_Q_epanet",
+    "sensor_15_Q1",
+    "sensor_15_Q2",
+    "sensor_15_delta_H",
+    "sensor_15_delta_Q",
+    "sensor_16_H_in",
+    "sensor_16_H_out",
+    "sensor_16_Hm",
+    "sensor_16_Q_epanet",
+    "sensor_16_Q1",
+    "sensor_16_Q2",
+    "sensor_16_delta_H",
+    "sensor_16_delta_Q",
+    "sensor_17_H_in",
+    "sensor_17_H_out",
+    "sensor_17_Hm",
+    "sensor_17_Q_epanet",
+    "sensor_17_Q1",
+    "sensor_17_Q2",
+    "sensor_17_delta_H",
+    "sensor_17_delta_Q",
+    "sensor_18_H_in",
+    "sensor_18_H_out",
+    "sensor_18_Hm",
+    "sensor_18_Q_epanet",
+    "sensor_18_Q1",
+    "sensor_18_Q2",
+    "sensor_18_delta_H",
+    "sensor_18_delta_Q",
+    "sensor_19_H_in",
+    "sensor_19_H_out",
+    "sensor_19_Hm",
+    "sensor_19_Q_epanet",
+    "sensor_19_Q1",
+    "sensor_19_Q2",
+    "sensor_19_delta_H",
+    "sensor_19_delta_Q",
+    "sensor_20_H_in",
+    "sensor_20_H_out",
+    "sensor_20_Hm",
+    "sensor_20_Q_epanet",
+    "sensor_20_Q1",
+    "sensor_20_Q2",
+    "sensor_20_delta_H",
+    "sensor_20_delta_Q",
+    "sensor_21_H_in",
+    "sensor_21_H_out",
+    "sensor_21_Hm",
+    "sensor_21_Q_epanet",
+    "sensor_21_Q1",
+    "sensor_21_Q2",
+    "sensor_21_delta_H",
+    "sensor_21_delta_Q",
+    "sensor_22_H_in",
+    "sensor_22_H_out",
+    "sensor_22_Hm",
+    "sensor_22_Q_epanet",
+    "sensor_22_Q1",
+    "sensor_22_Q2",
+    "sensor_22_delta_H",
+    "sensor_22_delta_Q",
+    "sensor_23_H_in",
+    "sensor_23_H_out",
+    "sensor_23_Hm",
+    "sensor_23_Q_epanet",
+    "sensor_23_Q1",
+    "sensor_23_Q2",
+    "sensor_23_delta_H",
+    "sensor_23_delta_Q",
+    "sensor_24_H_in",
+    "sensor_24_H_out",
+    "sensor_24_Hm",
+    "sensor_24_Q_epanet",
+    "sensor_24_Q1",
+    "sensor_24_Q2",
+    "sensor_24_delta_H",
+    "sensor_24_delta_Q",
+    "sensor_25_H_in",
+    "sensor_25_H_out",
+    "sensor_25_Hm",
+    "sensor_25_Q_epanet",
+    "sensor_25_Q1",
+    "sensor_25_Q2",
+    "sensor_25_delta_H",
+    "sensor_25_delta_Q",
+    "sensor_26_H_in",
+    "sensor_26_H_out",
+    "sensor_26_Hm",
+    "sensor_26_Q_epanet",
+    "sensor_26_Q1",
+    "sensor_26_Q2",
+    "sensor_26_delta_H",
+    "sensor_26_delta_Q",
+    "sensor_27_H_in",
+    "sensor_27_H_out",
+    "sensor_27_Hm",
+    "sensor_27_Q_epanet",
+    "sensor_27_Q1",
+    "sensor_27_Q2",
+    "sensor_27_delta_H",
+    "sensor_27_delta_Q",
+    "sensor_28_H_in",
+    "sensor_28_H_out",
+    "sensor_28_Hm",
+    "sensor_28_Q_epanet",
+    "sensor_28_Q1",
+    "sensor_28_Q2",
+    "sensor_28_delta_H",
+    "sensor_28_delta_Q",
+    "sensor_29_H_in",
+    "sensor_29_H_out",
+    "sensor_29_Hm",
+    "sensor_29_Q_epanet",
+    "sensor_29_Q1",
+    "sensor_29_Q2",
+    "sensor_29_delta_H",
+    "sensor_29_delta_Q",
+    "sensor_30_H_in",
+    "sensor_30_H_out",
+    "sensor_30_Hm",
+    "sensor_30_Q_epanet",
+    "sensor_30_Q1",
+    "sensor_30_Q2",
+    "sensor_30_delta_H",
+    "sensor_30_delta_Q",
+    "sensor_31_H_in",
+    "sensor_31_H_out",
+    "sensor_31_Hm",
+    "sensor_31_Q_epanet",
+    "sensor_31_Q1",
+    "sensor_31_Q2",
+    "sensor_31_delta_H",
+    "sensor_31_delta_Q",
+    "sensor_32_H_in",
+    "sensor_32_H_out",
+    "sensor_32_Hm",
+    "sensor_32_Q_epanet",
+    "sensor_32_Q1",
+    "sensor_32_Q2",
+    "sensor_32_delta_H",
+    "sensor_32_delta_Q",
+    "sensor_33_H_in",
+    "sensor_33_H_out",
+    "sensor_33_Hm",
+    "sensor_33_Q_epanet",
+    "sensor_33_Q1",
+    "sensor_33_Q2",
+    "sensor_33_delta_H",
+    "sensor_33_delta_Q",
+    "sensor_34_H_in",
+    "sensor_34_H_out",
+    "sensor_34_Hm",
+    "sensor_34_Q_epanet",
+    "sensor_34_Q1",
+    "sensor_34_Q2",
+    "sensor_34_delta_H",
+    "sensor_34_delta_Q",
+    "total_abs_Q_epanet",
+    "total_abs_Q1",
+    "total_abs_Q2",
+    "mean_abs_delta_H",
+    "mean_abs_delta_Q",
+    "mean_Hm",
+    "std_Hm"
+  ],
+  "feature_importances": [
+    {
+      "feature_index": 273,
+      "feature_name": "total_abs_Q1",
+      "importance": 0.23455724776826348
+    },
+    {
+      "feature_index": 274,
+      "feature_name": "total_abs_Q2",
+      "importance": 0.23404102227017035
+    },
+    {
+      "feature_index": 278,
+      "feature_name": "std_Hm",
+      "importance": 0.13768283314159346
+    },
+    {
+      "feature_index": 276,
+      "feature_name": "mean_abs_delta_Q",
+      "importance": 0.12985840713565822
+    },
+    {
+      "feature_index": 277,
+      "feature_name": "mean_Hm",
+      "importance": 0.10445476992843641
+    },
+    {
+      "feature_index": 188,
+      "feature_name": "sensor_24_Q1",
+      "importance": 0.004520670510170057
+    },
+    {
+      "feature_index": 269,
+      "feature_name": "sensor_34_Q2",
+      "importance": 0.0036772656217592763
+    },
+    {
+      "feature_index": 44,
+      "feature_name": "sensor_6_Q1",
+      "importance": 0.003398807141247843
+    },
+    {
+      "feature_index": 55,
+      "feature_name": "sensor_7_delta_Q",
+      "importance": 0.0032816292554458002
+    },
+    {
+      "feature_index": 268,
+      "feature_name": "sensor_34_Q1",
+      "importance": 0.0031684308104077
+    },
+    {
+      "feature_index": 140,
+      "feature_name": "sensor_18_Q1",
+      "importance": 0.0029277274963181938
+    },
+    {
+      "feature_index": 191,
+      "feature_name": "sensor_24_delta_Q",
+      "importance": 0.002839230333348481
+    },
+    {
+      "feature_index": 109,
+      "feature_name": "sensor_14_Q2",
+      "importance": 0.002802752384961223
+    },
+    {
+      "feature_index": 117,
+      "feature_name": "sensor_15_Q2",
+      "importance": 0.0026869288914388918
+    },
+    {
+      "feature_index": 215,
+      "feature_name": "sensor_27_delta_Q",
+      "importance": 0.0026808795889542597
+    },
+    {
+      "feature_index": 223,
+      "feature_name": "sensor_28_delta_Q",
+      "importance": 0.002530950991795621
+    },
+    {
+      "feature_index": 108,
+      "feature_name": "sensor_14_Q1",
+      "importance": 0.002456504532303983
+    },
+    {
+      "feature_index": 52,
+      "feature_name": "sensor_7_Q1",
+      "importance": 0.0024376754703055704
+    },
+    {
+      "feature_index": 189,
+      "feature_name": "sensor_24_Q2",
+      "importance": 0.0023548231580364084
+    },
+    {
+      "feature_index": 53,
+      "feature_name": "sensor_7_Q2",
+      "importance": 0.0023405436558335013
+    },
+    {
+      "feature_index": 95,
+      "feature_name": "sensor_12_delta_Q",
+      "importance": 0.0023258473298915887
+    },
+    {
+      "feature_index": 28,
+      "feature_name": "sensor_4_Q1",
+      "importance": 0.0022568731689411024
+    },
+    {
+      "feature_index": 100,
+      "feature_name": "sensor_13_Q1",
+      "importance": 0.002232799797509269
+    },
+    {
+      "feature_index": 47,
+      "feature_name": "sensor_6_delta_Q",
+      "importance": 0.002231108792425578
+    },
+    {
+      "feature_index": 220,
+      "feature_name": "sensor_28_Q1",
+      "importance": 0.0020801230110681595
+    },
+    {
+      "feature_index": 60,
+      "feature_name": "sensor_8_Q1",
+      "importance": 0.0020733233334614596
+    },
+    {
+      "feature_index": 63,
+      "feature_name": "sensor_8_delta_Q",
+      "importance": 0.002064880972991994
+    },
+    {
+      "feature_index": 92,
+      "feature_name": "sensor_12_Q1",
+      "importance": 0.0020396621158344447
+    },
+    {
+      "feature_index": 124,
+      "feature_name": "sensor_16_Q1",
+      "importance": 0.0019767081155668297
+    },
+    {
+      "feature_index": 207,
+      "feature_name": "sensor_26_delta_Q",
+      "importance": 0.0019168941360390081
+    },
+    {
+      "feature_index": 116,
+      "feature_name": "sensor_15_Q1",
+      "importance": 0.0018781782383887374
+    },
+    {
+      "feature_index": 271,
+      "feature_name": "sensor_34_delta_Q",
+      "importance": 0.0018119613774638587
+    },
+    {
+      "feature_index": 205,
+      "feature_name": "sensor_26_Q2",
+      "importance": 0.0017752911328615159
+    },
+    {
+      "feature_index": 204,
+      "feature_name": "sensor_26_Q1",
+      "importance": 0.0017401767164036423
+    },
+    {
+      "feature_index": 143,
+      "feature_name": "sensor_18_delta_Q",
+      "importance": 0.0017041185997406527
+    },
+    {
+      "feature_index": 68,
+      "feature_name": "sensor_9_Q1",
+      "importance": 0.001696809554577726
+    },
+    {
+      "feature_index": 76,
+      "feature_name": "sensor_10_Q1",
+      "importance": 0.0016795530276798314
+    },
+    {
+      "feature_index": 12,
+      "feature_name": "sensor_2_Q1",
+      "importance": 0.0016784936220609276
+    },
+    {
+      "feature_index": 196,
+      "feature_name": "sensor_25_Q1",
+      "importance": 0.001619691477644151
+    },
+    {
+      "feature_index": 39,
+      "feature_name": "sensor_5_delta_Q",
+      "importance": 0.001602705102259756
+    },
+    {
+      "feature_index": 103,
+      "feature_name": "sensor_13_delta_Q",
+      "importance": 0.0015960797628051884
+    },
+    {
+      "feature_index": 164,
+      "feature_name": "sensor_21_Q1",
+      "importance": 0.001566513495961171
+    },
+    {
+      "feature_index": 141,
+      "feature_name": "sensor_18_Q2",
+      "importance": 0.0015614113574576062
+    },
+    {
+      "feature_index": 197,
+      "feature_name": "sensor_25_Q2",
+      "importance": 0.0015589887670378136
+    },
+    {
+      "feature_index": 212,
+      "feature_name": "sensor_27_Q1",
+      "importance": 0.0015350127537340705
+    },
+    {
+      "feature_index": 199,
+      "feature_name": "sensor_25_delta_Q",
+      "importance": 0.0015170708273510342
+    },
+    {
+      "feature_index": 111,
+      "feature_name": "sensor_14_delta_Q",
+      "importance": 0.0014658831349430462
+    },
+    {
+      "feature_index": 29,
+      "feature_name": "sensor_4_Q2",
+      "importance": 0.0014541875719517464
+    },
+    {
+      "feature_index": 245,
+      "feature_name": "sensor_31_Q2",
+      "importance": 0.0014472443623894605
+    },
+    {
+      "feature_index": 5,
+      "feature_name": "sensor_1_Q2",
+      "importance": 0.001372995671380048
+    },
+    {
+      "feature_index": 244,
+      "feature_name": "sensor_31_Q1",
+      "importance": 0.0013639809527894375
+    },
+    {
+      "feature_index": 213,
+      "feature_name": "sensor_27_Q2",
+      "importance": 0.001321848557595901
+    },
+    {
+      "feature_index": 21,
+      "feature_name": "sensor_3_Q2",
+      "importance": 0.001309219861866668
+    },
+    {
+      "feature_index": 4,
+      "feature_name": "sensor_1_Q1",
+      "importance": 0.0012974048617166547
+    },
+    {
+      "feature_index": 79,
+      "feature_name": "sensor_10_delta_Q",
+      "importance": 0.0012932055766546378
+    },
+    {
+      "feature_index": 125,
+      "feature_name": "sensor_16_Q2",
+      "importance": 0.0012799869816286478
+    },
+    {
+      "feature_index": 239,
+      "feature_name": "sensor_30_delta_Q",
+      "importance": 0.0012695580299627526
+    },
+    {
+      "feature_index": 234,
+      "feature_name": "sensor_30_Hm",
+      "importance": 0.0012440673409273252
+    },
+    {
+      "feature_index": 165,
+      "feature_name": "sensor_21_Q2",
+      "importance": 0.0011946087761027318
+    },
+    {
+      "feature_index": 221,
+      "feature_name": "sensor_28_Q2",
+      "importance": 0.0011406781287219775
+    },
+    {
+      "feature_index": 255,
+      "feature_name": "sensor_32_delta_Q",
+      "importance": 0.0011302600285725967
+    },
+    {
+      "feature_index": 45,
+      "feature_name": "sensor_6_Q2",
+      "importance": 0.0011138486165958544
+    },
+    {
+      "feature_index": 127,
+      "feature_name": "sensor_16_delta_Q",
+      "importance": 0.0010988897775583606
+    },
+    {
+      "feature_index": 101,
+      "feature_name": "sensor_13_Q2",
+      "importance": 0.0010733499521713126
+    },
+    {
+      "feature_index": 23,
+      "feature_name": "sensor_3_delta_Q",
+      "importance": 0.001059955542457636
+    },
+    {
+      "feature_index": 229,
+      "feature_name": "sensor_29_Q2",
+      "importance": 0.001028034987382347
+    },
+    {
+      "feature_index": 181,
+      "feature_name": "sensor_23_Q2",
+      "importance": 0.0010197626171483522
+    },
+    {
+      "feature_index": 266,
+      "feature_name": "sensor_34_Hm",
+      "importance": 0.0010134186384080945
+    },
+    {
+      "feature_index": 237,
+      "feature_name": "sensor_30_Q2",
+      "importance": 0.0009987507460580962
+    },
+    {
+      "feature_index": 228,
+      "feature_name": "sensor_29_Q1",
+      "importance": 0.0009893943707220414
+    },
+    {
+      "feature_index": 194,
+      "feature_name": "sensor_25_Hm",
+      "importance": 0.0009892160914406884
+    },
+    {
+      "feature_index": 159,
+      "feature_name": "sensor_20_delta_Q",
+      "importance": 0.000980454180147798
+    },
+    {
+      "feature_index": 149,
+      "feature_name": "sensor_19_Q2",
+      "importance": 0.0009760877003541881
+    },
+    {
+      "feature_index": 132,
+      "feature_name": "sensor_17_Q1",
+      "importance": 0.0009707244111959651
+    },
+    {
+      "feature_index": 247,
+      "feature_name": "sensor_31_delta_Q",
+      "importance": 0.0009694993454005745
+    },
+    {
+      "feature_index": 133,
+      "feature_name": "sensor_17_Q2",
+      "importance": 0.0009564083748089934
+    },
+    {
+      "feature_index": 69,
+      "feature_name": "sensor_9_Q2",
+      "importance": 0.0009516185440225764
+    },
+    {
+      "feature_index": 31,
+      "feature_name": "sensor_4_delta_Q",
+      "importance": 0.0009511365975882922
+    },
+    {
+      "feature_index": 119,
+      "feature_name": "sensor_15_delta_Q",
+      "importance": 0.0009506523592292456
+    },
+    {
+      "feature_index": 20,
+      "feature_name": "sensor_3_Q1",
+      "importance": 0.0009418453691221881
+    },
+    {
+      "feature_index": 37,
+      "feature_name": "sensor_5_Q2",
+      "importance": 0.0009312272874839928
+    },
+    {
+      "feature_index": 186,
+      "feature_name": "sensor_24_Hm",
+      "importance": 0.0008923832058702037
+    },
+    {
+      "feature_index": 236,
+      "feature_name": "sensor_30_Q1",
+      "importance": 0.0008872653966801771
+    },
+    {
+      "feature_index": 252,
+      "feature_name": "sensor_32_Q1",
+      "importance": 0.0008783809092878866
+    },
+    {
+      "feature_index": 210,
+      "feature_name": "sensor_27_Hm",
+      "importance": 0.0008778760182687136
+    },
+    {
+      "feature_index": 85,
+      "feature_name": "sensor_11_Q2",
+      "importance": 0.0008641965538740943
+    },
+    {
+      "feature_index": 172,
+      "feature_name": "sensor_22_Q1",
+      "importance": 0.0008629000726142961
+    },
+    {
+      "feature_index": 77,
+      "feature_name": "sensor_10_Q2",
+      "importance": 0.0008575296009612083
+    },
+    {
+      "feature_index": 93,
+      "feature_name": "sensor_12_Q2",
+      "importance": 0.0008568131306803273
+    },
+    {
+      "feature_index": 173,
+      "feature_name": "sensor_22_Q2",
+      "importance": 0.0008353214985310438
+    },
+    {
+      "feature_index": 15,
+      "feature_name": "sensor_2_delta_Q",
+      "importance": 0.0008246379664203649
+    },
+    {
+      "feature_index": 151,
+      "feature_name": "sensor_19_delta_Q",
+      "importance": 0.0008037109580554416
+    },
+    {
+      "feature_index": 71,
+      "feature_name": "sensor_9_delta_Q",
+      "importance": 0.0007954159478572953
+    },
+    {
+      "feature_index": 183,
+      "feature_name": "sensor_23_delta_Q",
+      "importance": 0.0007768801089636767
+    },
+    {
+      "feature_index": 84,
+      "feature_name": "sensor_11_Q1",
+      "importance": 0.0007633346142452012
+    },
+    {
+      "feature_index": 156,
+      "feature_name": "sensor_20_Q1",
+      "importance": 0.0007524979617721107
+    },
+    {
+      "feature_index": 157,
+      "feature_name": "sensor_20_Q2",
+      "importance": 0.0007013249644716828
+    },
+    {
+      "feature_index": 226,
+      "feature_name": "sensor_29_Hm",
+      "importance": 0.0006734404179938854
+    },
+    {
+      "feature_index": 135,
+      "feature_name": "sensor_17_delta_Q",
+      "importance": 0.0006523631080209392
+    },
+    {
+      "feature_index": 180,
+      "feature_name": "sensor_23_Q1",
+      "importance": 0.0006328125769610316
+    },
+    {
+      "feature_index": 26,
+      "feature_name": "sensor_4_Hm",
+      "importance": 0.0006041418341289285
+    },
+    {
+      "feature_index": 231,
+      "feature_name": "sensor_29_delta_Q",
+      "importance": 0.000572841723924128
+    },
+    {
+      "feature_index": 167,
+      "feature_name": "sensor_21_delta_Q",
+      "importance": 0.0005299844766271986
+    },
+    {
+      "feature_index": 146,
+      "feature_name": "sensor_19_Hm",
+      "importance": 0.0005281511103348528
+    },
+    {
+      "feature_index": 36,
+      "feature_name": "sensor_5_Q1",
+      "importance": 0.0005255298270014781
+    },
+    {
+      "feature_index": 261,
+      "feature_name": "sensor_33_Q2",
+      "importance": 0.000512595007126153
+    },
+    {
+      "feature_index": 170,
+      "feature_name": "sensor_22_Hm",
+      "importance": 0.0005070607015429249
+    },
+    {
+      "feature_index": 87,
+      "feature_name": "sensor_11_delta_Q",
+      "importance": 0.000504834528439183
+    },
+    {
+      "feature_index": 242,
+      "feature_name": "sensor_31_Hm",
+      "importance": 0.0004676193309477407
+    },
+    {
+      "feature_index": 162,
+      "feature_name": "sensor_21_Hm",
+      "importance": 0.0004636950110538994
+    },
+    {
+      "feature_index": 148,
+      "feature_name": "sensor_19_Q1",
+      "importance": 0.0004401853399118989
+    },
+    {
+      "feature_index": 13,
+      "feature_name": "sensor_2_Q2",
+      "importance": 0.00043393963713553665
+    },
+    {
+      "feature_index": 61,
+      "feature_name": "sensor_8_Q2",
+      "importance": 0.0004239317948352477
+    },
+    {
+      "feature_index": 50,
+      "feature_name": "sensor_7_Hm",
+      "importance": 0.00042128131909190375
+    },
+    {
+      "feature_index": 260,
+      "feature_name": "sensor_33_Q1",
+      "importance": 0.00040773561533143446
+    },
+    {
+      "feature_index": 253,
+      "feature_name": "sensor_32_Q2",
+      "importance": 0.0003781397694050567
+    },
+    {
+      "feature_index": 10,
+      "feature_name": "sensor_2_Hm",
+      "importance": 0.0003657890266621723
+    },
+    {
+      "feature_index": 58,
+      "feature_name": "sensor_8_Hm",
+      "importance": 0.0003518966754950128
+    },
+    {
+      "feature_index": 74,
+      "feature_name": "sensor_10_Hm",
+      "importance": 0.0003495522702340689
+    },
+    {
+      "feature_index": 122,
+      "feature_name": "sensor_16_Hm",
+      "importance": 0.0003323661055285571
+    },
+    {
+      "feature_index": 175,
+      "feature_name": "sensor_22_delta_Q",
+      "importance": 0.0003289653262645626
+    },
+    {
+      "feature_index": 138,
+      "feature_name": "sensor_18_Hm",
+      "importance": 0.0003186299434378208
+    },
+    {
+      "feature_index": 2,
+      "feature_name": "sensor_1_Hm",
+      "importance": 0.0003167087890662155
+    },
+    {
+      "feature_index": 106,
+      "feature_name": "sensor_14_Hm",
+      "importance": 0.00030101127810767947
+    },
+    {
+      "feature_index": 42,
+      "feature_name": "sensor_6_Hm",
+      "importance": 0.0002983149612631328
+    },
+    {
+      "feature_index": 98,
+      "feature_name": "sensor_13_Hm",
+      "importance": 0.00029559722787687593
+    },
+    {
+      "feature_index": 66,
+      "feature_name": "sensor_9_Hm",
+      "importance": 0.0002461031025065153
+    },
+    {
+      "feature_index": 18,
+      "feature_name": "sensor_3_Hm",
+      "importance": 0.00024267578760075445
+    },
+    {
+      "feature_index": 263,
+      "feature_name": "sensor_33_delta_Q",
+      "importance": 0.00023514556930879618
+    },
+    {
+      "feature_index": 7,
+      "feature_name": "sensor_1_delta_Q",
+      "importance": 0.00022822794043072538
+    },
+    {
+      "feature_index": 34,
+      "feature_name": "sensor_5_Hm",
+      "importance": 0.0002065998719817649
+    },
+    {
+      "feature_index": 154,
+      "feature_name": "sensor_20_Hm",
+      "importance": 0.00014645515925595665
+    },
+    {
+      "feature_index": 258,
+      "feature_name": "sensor_33_Hm",
+      "importance": 0.0001142868310100016
+    },
+    {
+      "feature_index": 250,
+      "feature_name": "sensor_32_Hm",
+      "importance": 9.957920036212658e-05
+    },
+    {
+      "feature_index": 202,
+      "feature_name": "sensor_26_Hm",
+      "importance": 9.815638501212377e-05
+    },
+    {
+      "feature_index": 178,
+      "feature_name": "sensor_23_Hm",
+      "importance": 9.691387936086299e-05
+    },
+    {
+      "feature_index": 90,
+      "feature_name": "sensor_12_Hm",
+      "importance": 8.898955042845601e-05
+    },
+    {
+      "feature_index": 114,
+      "feature_name": "sensor_15_Hm",
+      "importance": 5.843183355709764e-05
+    },
+    {
+      "feature_index": 130,
+      "feature_name": "sensor_17_Hm",
+      "importance": 4.4217526083276706e-08
+    },
+    {
+      "feature_index": 218,
+      "feature_name": "sensor_28_Hm",
+      "importance": 2.0465328818104605e-08
+    },
+    {
+      "feature_index": 82,
+      "feature_name": "sensor_11_Hm",
+      "importance": 4.54392067703037e-09
+    },
+    {
+      "feature_index": 0,
+      "feature_name": "sensor_1_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 1,
+      "feature_name": "sensor_1_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 3,
+      "feature_name": "sensor_1_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 6,
+      "feature_name": "sensor_1_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 8,
+      "feature_name": "sensor_2_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 9,
+      "feature_name": "sensor_2_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 11,
+      "feature_name": "sensor_2_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 14,
+      "feature_name": "sensor_2_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 16,
+      "feature_name": "sensor_3_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 17,
+      "feature_name": "sensor_3_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 19,
+      "feature_name": "sensor_3_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 22,
+      "feature_name": "sensor_3_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 24,
+      "feature_name": "sensor_4_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 25,
+      "feature_name": "sensor_4_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 27,
+      "feature_name": "sensor_4_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 30,
+      "feature_name": "sensor_4_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 32,
+      "feature_name": "sensor_5_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 33,
+      "feature_name": "sensor_5_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 35,
+      "feature_name": "sensor_5_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 38,
+      "feature_name": "sensor_5_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 40,
+      "feature_name": "sensor_6_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 41,
+      "feature_name": "sensor_6_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 43,
+      "feature_name": "sensor_6_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 46,
+      "feature_name": "sensor_6_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 48,
+      "feature_name": "sensor_7_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 49,
+      "feature_name": "sensor_7_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 51,
+      "feature_name": "sensor_7_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 54,
+      "feature_name": "sensor_7_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 56,
+      "feature_name": "sensor_8_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 57,
+      "feature_name": "sensor_8_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 59,
+      "feature_name": "sensor_8_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 62,
+      "feature_name": "sensor_8_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 64,
+      "feature_name": "sensor_9_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 65,
+      "feature_name": "sensor_9_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 67,
+      "feature_name": "sensor_9_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 70,
+      "feature_name": "sensor_9_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 72,
+      "feature_name": "sensor_10_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 73,
+      "feature_name": "sensor_10_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 75,
+      "feature_name": "sensor_10_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 78,
+      "feature_name": "sensor_10_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 80,
+      "feature_name": "sensor_11_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 81,
+      "feature_name": "sensor_11_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 83,
+      "feature_name": "sensor_11_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 86,
+      "feature_name": "sensor_11_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 88,
+      "feature_name": "sensor_12_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 89,
+      "feature_name": "sensor_12_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 91,
+      "feature_name": "sensor_12_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 94,
+      "feature_name": "sensor_12_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 96,
+      "feature_name": "sensor_13_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 97,
+      "feature_name": "sensor_13_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 99,
+      "feature_name": "sensor_13_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 102,
+      "feature_name": "sensor_13_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 104,
+      "feature_name": "sensor_14_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 105,
+      "feature_name": "sensor_14_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 107,
+      "feature_name": "sensor_14_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 110,
+      "feature_name": "sensor_14_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 112,
+      "feature_name": "sensor_15_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 113,
+      "feature_name": "sensor_15_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 115,
+      "feature_name": "sensor_15_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 118,
+      "feature_name": "sensor_15_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 120,
+      "feature_name": "sensor_16_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 121,
+      "feature_name": "sensor_16_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 123,
+      "feature_name": "sensor_16_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 126,
+      "feature_name": "sensor_16_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 128,
+      "feature_name": "sensor_17_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 129,
+      "feature_name": "sensor_17_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 131,
+      "feature_name": "sensor_17_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 134,
+      "feature_name": "sensor_17_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 136,
+      "feature_name": "sensor_18_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 137,
+      "feature_name": "sensor_18_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 139,
+      "feature_name": "sensor_18_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 142,
+      "feature_name": "sensor_18_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 144,
+      "feature_name": "sensor_19_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 145,
+      "feature_name": "sensor_19_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 147,
+      "feature_name": "sensor_19_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 150,
+      "feature_name": "sensor_19_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 152,
+      "feature_name": "sensor_20_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 153,
+      "feature_name": "sensor_20_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 155,
+      "feature_name": "sensor_20_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 158,
+      "feature_name": "sensor_20_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 160,
+      "feature_name": "sensor_21_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 161,
+      "feature_name": "sensor_21_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 163,
+      "feature_name": "sensor_21_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 166,
+      "feature_name": "sensor_21_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 168,
+      "feature_name": "sensor_22_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 169,
+      "feature_name": "sensor_22_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 171,
+      "feature_name": "sensor_22_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 174,
+      "feature_name": "sensor_22_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 176,
+      "feature_name": "sensor_23_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 177,
+      "feature_name": "sensor_23_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 179,
+      "feature_name": "sensor_23_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 182,
+      "feature_name": "sensor_23_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 184,
+      "feature_name": "sensor_24_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 185,
+      "feature_name": "sensor_24_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 187,
+      "feature_name": "sensor_24_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 190,
+      "feature_name": "sensor_24_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 192,
+      "feature_name": "sensor_25_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 193,
+      "feature_name": "sensor_25_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 195,
+      "feature_name": "sensor_25_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 198,
+      "feature_name": "sensor_25_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 200,
+      "feature_name": "sensor_26_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 201,
+      "feature_name": "sensor_26_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 203,
+      "feature_name": "sensor_26_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 206,
+      "feature_name": "sensor_26_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 208,
+      "feature_name": "sensor_27_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 209,
+      "feature_name": "sensor_27_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 211,
+      "feature_name": "sensor_27_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 214,
+      "feature_name": "sensor_27_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 216,
+      "feature_name": "sensor_28_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 217,
+      "feature_name": "sensor_28_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 219,
+      "feature_name": "sensor_28_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 222,
+      "feature_name": "sensor_28_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 224,
+      "feature_name": "sensor_29_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 225,
+      "feature_name": "sensor_29_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 227,
+      "feature_name": "sensor_29_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 230,
+      "feature_name": "sensor_29_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 232,
+      "feature_name": "sensor_30_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 233,
+      "feature_name": "sensor_30_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 235,
+      "feature_name": "sensor_30_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 238,
+      "feature_name": "sensor_30_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 240,
+      "feature_name": "sensor_31_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 241,
+      "feature_name": "sensor_31_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 243,
+      "feature_name": "sensor_31_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 246,
+      "feature_name": "sensor_31_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 248,
+      "feature_name": "sensor_32_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 249,
+      "feature_name": "sensor_32_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 251,
+      "feature_name": "sensor_32_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 254,
+      "feature_name": "sensor_32_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 256,
+      "feature_name": "sensor_33_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 257,
+      "feature_name": "sensor_33_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 259,
+      "feature_name": "sensor_33_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 262,
+      "feature_name": "sensor_33_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 264,
+      "feature_name": "sensor_34_H_in",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 265,
+      "feature_name": "sensor_34_H_out",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 267,
+      "feature_name": "sensor_34_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 270,
+      "feature_name": "sensor_34_delta_H",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 272,
+      "feature_name": "total_abs_Q_epanet",
+      "importance": 0.0
+    },
+    {
+      "feature_index": 275,
+      "feature_name": "mean_abs_delta_H",
+      "importance": 0.0
+    }
+  ],
+  "train": {
+    "classification_report": {
+      "0": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 630.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 630.0
+      },
+      "2": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 630.0
+      },
+      "3": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 630.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 2520.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 2520.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        630,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        630,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        630,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        630
+      ]
+    ]
+  },
+  "val": {
+    "classification_report": {
+      "0": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "2": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "3": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "accuracy": 1.0,
+      "macro avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 540.0
+      },
+      "weighted avg": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 540.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        135,
+        0,
+        0,
+        0
+      ],
+      [
+        0,
+        135,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        135,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        135
+      ]
+    ]
+  },
+  "test": {
+    "classification_report": {
+      "0": {
+        "precision": 0.9926470588235294,
+        "recall": 1.0,
+        "f1-score": 0.996309963099631,
+        "support": 135.0
+      },
+      "1": {
+        "precision": 1.0,
+        "recall": 0.9925925925925926,
+        "f1-score": 0.9962825278810409,
+        "support": 135.0
+      },
+      "2": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "3": {
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1-score": 1.0,
+        "support": 135.0
+      },
+      "accuracy": 0.9981481481481481,
+      "macro avg": {
+        "precision": 0.9981617647058824,
+        "recall": 0.9981481481481481,
+        "f1-score": 0.998148122745168,
+        "support": 540.0
+      },
+      "weighted avg": {
+        "precision": 0.9981617647058824,
+        "recall": 0.9981481481481481,
+        "f1-score": 0.9981481227451678,
+        "support": 540.0
+      }
+    },
+    "confusion_matrix": [
+      [
+        135,
+        0,
+        0,
+        0
+      ],
+      [
+        1,
+        134,
+        0,
+        0
+      ],
+      [
+        0,
+        0,
+        135,
+        0
+      ],
+      [
+        0,
+        0,
+        0,
+        135
+      ]
+    ]
+  }
+}
