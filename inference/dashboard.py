@@ -19,10 +19,13 @@ from inference.real_time_detector import RealTimeLeakDetector
 from integration.EPANET_Integration import EPANETIntegrator
 from isolation.valve_isolation import ValveIsolationManager
 from restoration.supply_restoration import SupplyRestorationManager
-from evaluation.evaluation_framework import PerformanceEvaluator, EvaluationEvent
+
 
 INP_FILE = ROOT_DIR / "EPANETINPUTFILESFOR7NEWORKS" / "2_Extended Hanoi.inp"
 PORT = 8000
+
+SIMULATION_RESULTS = {}  # Track latest simulation per fault_id
+EVENT_COUNTER = 0  # Unique event ID counter
 
 HTML_PAGE = """<!DOCTYPE html>
 <html lang="en">
@@ -70,14 +73,13 @@ HTML_PAGE = """<!DOCTYPE html>
 <body>
   <header>
     <h1>Water Distribution Network - Fault Detection & Response System</h1>
-    <p>Objectives 1-6: Detection, Localization, Isolation, Restoration, and Metrics</p>
+    <p>Objectives 1-5: Detection, Localization, Isolation, and Restoration</p>
   </header>
   
   <div class="tabs">
     <button class="tab-btn active" data-tab="detection">Detection & Localization</button>
     <button class="tab-btn" data-tab="isolation">Isolation (Obj 4)</button>
     <button class="tab-btn" data-tab="restoration">Restoration (Obj 5)</button>
-    <button class="tab-btn" data-tab="metrics">Metrics (Obj 6)</button>
   </div>
 
   <main>
@@ -137,15 +139,7 @@ HTML_PAGE = """<!DOCTYPE html>
         <div id="restoration-result" style="margin-top: 12px; white-space: pre-wrap; font-family: monospace; line-height: 1.4; font-size: 12px; background: #f8fafc; padding: 12px; border-radius: 8px; border: 1px solid #e2e8f0; max-height: 300px; overflow-y: auto;"></div>
       </div>
 
-      <!-- Metrics Tab -->
-      <div id="metrics" class="tab-content">
-        <h2>Performance Metrics (Obj 6)</h2>
-        <p style="font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 12px;">
-          System performance against literature targets.
-        </p>
-        <button id="load-metrics" class="secondary">Load Metrics Report</button>
-        <div id="metrics-result" style="margin-top: 12px;"></div>
-      </div>
+      <!-- Metrics Tab removed per user request -->
     </div>
     
     <div class="panel">
@@ -181,7 +175,6 @@ HTML_PAGE = """<!DOCTYPE html>
     const simulateButton = document.getElementById('simulate');
     const isolateButton = document.getElementById('isolate');
     const restoreButton = document.getElementById('restore');
-    const loadMetricsButton = document.getElementById('load-metrics');
     const svg = document.getElementById('network-svg');
     
     let network = null;
@@ -194,6 +187,8 @@ HTML_PAGE = """<!DOCTYPE html>
     let isolatedPipes = [];
     let restorationPathPipes = [];
     let customerMap = null;
+    let currentFaultId = null;  // Track fault_id for metrics
+    let eventTimestamps = {};  // Track timestamps per fault_id
 
     function setStatus(text) {
       status.textContent = text;
@@ -401,11 +396,13 @@ HTML_PAGE = """<!DOCTYPE html>
       }
       setStatus('Running simulation...');
       try {
+        const simStartTime = Date.now() / 1000;  // Capture simulation start
         const res = await fetch('/simulate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ faults }),
         });
+        const simEndTime = Date.now() / 1000;
         const data = await res.json();
         if (data.error) {
           setStatus('Error: ' + data.error);
@@ -413,8 +410,18 @@ HTML_PAGE = """<!DOCTYPE html>
           predictedZonePipes = [];
         } else {
           prediction = data;
+          currentFaultId = data.fault_id || null;  // Capture fault_id from response
           predictedZonePipes = Array.isArray(data.predicted_zone_pipes) ? data.predicted_zone_pipes : [];
-          setStatus('Simulation completed.');
+          
+          // Store timestamps for this fault
+          if (currentFaultId) {
+            eventTimestamps[currentFaultId] = {
+              fault_onset_timestamp: simStartTime,
+              detection_timestamp: simEndTime,
+            };
+          }
+          
+          setStatus('Simulation completed. (Fault ID: ' + (currentFaultId || 'N/A') + ')');
         }
       } catch (err) {
         setStatus('Request failed: ' + err.message);
@@ -434,11 +441,17 @@ HTML_PAGE = """<!DOCTYPE html>
       const resultDiv = document.getElementById('isolation-result');
       resultDiv.textContent = 'Computing isolation...';
       try {
+        const isoStartTime = Date.now() / 1000;
         const res = await fetch('/isolate', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ pipe_id: pipeId }),
+          body: JSON.stringify({ 
+            pipe_id: pipeId, 
+            fault_id: currentFaultId,
+            isolation_timestamp: isoStartTime,
+          }),
         });
+        const isoEndTime = Date.now() / 1000;
         const data = await res.json();
         if (data.error) {
           resultDiv.textContent = 'Error: ' + data.error;
@@ -483,11 +496,24 @@ HTML_PAGE = """<!DOCTYPE html>
       const resultDiv = document.getElementById('restoration-result');
       resultDiv.textContent = 'Computing restoration...';
       try {
+        const restStartTime = Date.now() / 1000;
         const res = await fetch('/restore', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ isolated_pipes: pipes, isolated_nodes: nodes, customer_map: customerMap }),
+          body: JSON.stringify({ 
+            isolated_pipes: pipes, 
+            isolated_nodes: nodes, 
+            customer_map: customerMap, 
+            fault_id: currentFaultId,
+            restoration_timestamp: restStartTime,
+          }),
         });
+        const restEndTime = Date.now() / 1000;
+        
+        // Store restoration timestamp
+        if (currentFaultId && eventTimestamps[currentFaultId]) {
+          eventTimestamps[currentFaultId].restoration_timestamp = restEndTime;
+        }
         const data = await res.json();
         if (data.error) {
           resultDiv.textContent = 'Error: ' + data.error;
@@ -542,48 +568,7 @@ HTML_PAGE = """<!DOCTYPE html>
       }
     }
 
-    async function loadMetrics() {
-      const resultDiv = document.getElementById('metrics-result');
-      resultDiv.textContent = 'Loading metrics...';
-      try {
-        const res = await fetch('/metrics');
-        const data = await res.json();
-        if (data.error) {
-          resultDiv.textContent = 'Error: ' + data.error;
-        } else {
-          const s = data.summary || {};
-          let html = `<div class="card"><strong>SYSTEM METRICS</strong><br/>` +
-            `Water Loss Reduction: ${(s.water_loss_reduction_percent || 0).toFixed(1)}% (target: >=85%)<br/>` +
-            `End-to-End Latency: ${(s.end_to_end_latency_seconds || 0).toFixed(1)}s (target: <300s)<br/>` +
-            `System Reliability: ${(s.system_reliability_percent || 0).toFixed(1)}% (target: >99%)</div>`;
-          
-          if (s.detection) {
-            html += `<div class="card"><strong>DETECTION</strong><br/>` +
-              `Accuracy: ${(s.detection.accuracy || 0).toFixed(3)} (target: >=0.90)<br/>` +
-              `FPR: ${(s.detection.false_positive_rate || 0).toFixed(3)} (target: <0.05)<br/>` +
-              `Latency: ${(s.detection.detection_latency_seconds || 0).toFixed(1)}s</div>`;
-          }
-          if (s.localization) {
-            html += `<div class="card"><strong>LOCALIZATION</strong><br/>` +
-              `Zone Accuracy: ${(s.localization.zone_accuracy || 0).toFixed(3)} (target: >=0.80)<br/>` +
-              `Top-3 Accuracy: ${(s.localization.top_3_accuracy || 0).toFixed(3)}</div>`;
-          }
-          if (s.isolation) {
-            html += `<div class="card"><strong>ISOLATION (OBJ 4)</strong><br/>` +
-              `Response Time: ${(s.isolation.mean_response_time_seconds || 0).toFixed(1)}s (target: <120s)<br/>` +
-              `Customers Affected: ${(s.isolation.mean_customers_affected || 0).toFixed(0)}</div>`;
-          }
-          if (s.restoration) {
-            html += `<div class="card"><strong>RESTORATION (OBJ 5)</strong><br/>` +
-              `Success Rate: ${Math.round((s.restoration.restoration_success_rate || 0) * 100)}% (target: >=60%)<br/>` +
-              `Feasibility: ${Math.round((s.restoration.restoration_feasibility_rate || 0) * 100)}%</div>`;
-          }
-          resultDiv.innerHTML = html;
-        }
-      } catch (err) {
-        resultDiv.textContent = 'Request failed: ' + err.message;
-      }
-    }
+    // Metrics UI removed per user request
 
     simulateButton.addEventListener('click', simulate);
     isolateButton.addEventListener('click', computeIsolation);
@@ -635,7 +620,6 @@ HTML_PAGE = """<!DOCTYPE html>
         setStatus('Invalid JSON: ' + err.message);
       }
     });
-    loadMetricsButton.addEventListener('click', loadMetrics);
     requestNetwork().then(populateControls).catch(err => setStatus('Failed to load network: ' + err.message));
     // auto-load default customer map
     fetch('/customer_map').then(r => r.json()).then(obj => {
@@ -784,32 +768,12 @@ class DashboardHandler(BaseHTTPRequestHandler):
           except Exception as exc:
             self._send_response(json.dumps({"error": str(exc)}).encode("utf-8"), "application/json", status=500)
           return
-        if self.path.startswith("/metrics"):
-            try:
-                evaluator = PerformanceEvaluator()
-                # Return empty report if no events (placeholder)
-                report_data = {
-                    "summary": {
-                        "water_loss_reduction_percent": 0,
-                        "end_to_end_latency_seconds": 0,
-                        "system_reliability_percent": 99.5,
-                        "detection": None,
-                        "localization": None,
-                        "isolation": None,
-                        "restoration": None,
-                    },
-                    "num_events": 0,
-                    "events": [],
-                }
-                payload = json.dumps(report_data).encode("utf-8")
-                self._send_response(payload, "application/json")
-            except Exception as exc:
-                payload = json.dumps({"error": str(exc)}).encode("utf-8")
-                self._send_response(payload, "application/json", status=500)
-            return
+        # Metrics endpoint removed per user request
         self.send_error(404, "Not Found")
 
     def do_POST(self) -> None:
+        global EVENT_COUNTER
+        
         if self.path == "/simulate":
             length = int(self.headers.get("Content-Length", "0"))
             body = self.rfile.read(length).decode("utf-8") if length else ""
@@ -821,6 +785,23 @@ class DashboardHandler(BaseHTTPRequestHandler):
                     pipe_name = request.get("pipe") if request.get("pipe") is not None else request.get("pipes")
                     faults = pipe_name
                 result = simulate_leak(faults, scenario)
+                
+                # Track simulation result for metrics
+                EVENT_COUNTER += 1
+                fault_id = f"fault_{EVENT_COUNTER}"
+                detection_result = result.get("result", {}).get("detection", {})
+                localization_result = result.get("result", {}).get("localization", {})
+                SIMULATION_RESULTS[fault_id] = {
+                    "fault_id": fault_id,
+                    "detection": detection_result,
+                    "localization": localization_result,
+                    "detection_timestamp": 0,  # Will be set by client
+                    "fault_onset_timestamp": 0,  # Will be set by client
+                }
+                
+                # Include fault_id in response so frontend can track it
+                result["fault_id"] = fault_id
+                
                 payload = json.dumps(result).encode("utf-8")
                 self._send_response(payload, "application/json")
             except Exception as exc:
@@ -844,6 +825,18 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 
                 manager = ValveIsolationManager(str(INP_FILE))
                 result = manager.compute_isolation(faulty_pipe_id)
+                
+                # Track isolation result for metrics
+                fault_id = request.get("fault_id")
+                if fault_id and fault_id in SIMULATION_RESULTS:
+                    iso_timestamp = request.get("isolation_timestamp", 0.0)
+                    SIMULATION_RESULTS[fault_id]["isolation"] = {
+                        "valve_closure_count": len(result.valve_ids),
+                        "customers_isolated": result.customers_affected,
+                        "isolation_timestamp": iso_timestamp,
+                        "faulty_pipe_id": faulty_pipe_id,
+                    }
+                
                 payload = json.dumps(result.to_dict()).encode("utf-8")
                 self._send_response(payload, "application/json")
             except Exception as exc:
@@ -867,6 +860,21 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 
                 manager = SupplyRestorationManager(str(INP_FILE))
                 result = manager.compute_restoration(isolated_pipes, isolated_nodes, customer_map=customer_map)
+                
+                # Complete event and add to evaluator
+                fault_id = request.get("fault_id")
+                restoration_timestamp = request.get("restoration_timestamp", 0.0)
+                
+                if fault_id and fault_id in SIMULATION_RESULTS:
+                  sim_data = SIMULATION_RESULTS[fault_id]
+                  # Attach restoration summary to stored simulation data
+                  sim_data["restoration"] = {
+                    "restored_customers": result.restored_customers,
+                    "restoration_timestamp": restoration_timestamp,
+                  }
+                  # Cleanup stored simulation now that restoration completed
+                  del SIMULATION_RESULTS[fault_id]
+                
                 payload = json.dumps(result.to_dict()).encode("utf-8")
                 self._send_response(payload, "application/json")
             except Exception as exc:

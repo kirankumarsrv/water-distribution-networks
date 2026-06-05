@@ -291,6 +291,8 @@ class PerformanceEvaluator:
             where=(customers_isolated > 0),
             out=np.zeros_like(customers_restored, dtype=float),
         )
+        # Clamp success rate to [0, 1] (can exceed 1 if restored > isolated due to customer_map mismatches)
+        success_rates = np.clip(success_rates, 0, 1)
         success_rate = float(np.mean(success_rates))
 
         # Restoration times
