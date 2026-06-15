@@ -49,7 +49,7 @@ Due to GitHub's strict 100MB file size limit, the massively-scaled 2.7GB `models
 
 If you cloned this repository and wish to run the interactive dashboard for the Balerma network, you must download the pre-trained `.pkl` weights and place them in the correct directories:
 
-1. **[Download Balerma Model Weights (Google Drive)](#)** *(replace with your Google Drive link)*
+1. **[Download Balerma Model Weights (Google Drive)](#)** *(https://drive.google.com/file/d/1P9LP9Lo6HKl7BznUSuhnNYKtGWBPgOI8/view?usp=sharing)*
 2. Extract the weights into `models/balerma/`
 
 Alternatively, you can generate the models entirely from scratch locally by running the retraining scripts (see Usage below).
