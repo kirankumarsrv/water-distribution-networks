@@ -161,10 +161,14 @@ def build_dataset():
 
     per_class = N_SAMPLES // len(scenario_types)
     for scen in scenario_types:
+        attack_targets = None
+        if scen != "normal":
+            attack_targets = list(all_pipes)
+            random.shuffle(attack_targets)
         for sample_idx in range(per_class):
             target_pipe = None
             if scen != "normal":
-                target_pipe = random.choice(all_pipes)
+                target_pipe = attack_targets[sample_idx % len(attack_targets)]
             try:
                 integrator.run_simulation()
                 heads = integrator.results.node["head"]
@@ -339,9 +343,9 @@ if __name__ == "__main__":
     parser.add_argument("--seed", type=int, default=SEED, help="Random seed for reproducibility")
     args = parser.parse_args()
 
-    INP_FILE = Path(args.inp_file)
+    INP_FILE = Path(args.inp_file).resolve()
     N_SAMPLES = args.samples
-    SAVE_DIR = Path(args.save_dir)
+    SAVE_DIR = Path(args.save_dir).resolve()
     SEED = args.seed
     random.seed(SEED)
     np.random.seed(SEED)

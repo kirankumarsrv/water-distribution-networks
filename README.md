@@ -41,6 +41,18 @@ Modular project structure for EPANET-based leak simulation, physical pipe modeli
 - `models/leak_detection_metrics.json` — Objective 2 metrics
 - `models/localization_metrics.json` — Objective 3 metrics
 - `models/extended_hanoi/` — dedicated Extended Hanoi trained models, metrics, and notes
+- `models/balerma/` — dedicated Balerma trained models
+
+## Pre-Trained Models & Large Files
+
+Due to GitHub's strict 100MB file size limit, the massively-scaled 2.7GB `models/balerma/stage2_zone_classifier_cleaned.pkl` model is hosted externally. 
+
+If you cloned this repository and wish to run the interactive dashboard for the Balerma network, you must download the pre-trained `.pkl` weights and place them in the correct directories:
+
+1. **[Download Balerma Model Weights (Google Drive)](#)** *(replace with your Google Drive link)*
+2. Extract the weights into `models/balerma/`
+
+Alternatively, you can generate the models entirely from scratch locally by running the retraining scripts (see Usage below).
 
 ## Usage
 

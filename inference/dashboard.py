@@ -21,7 +21,27 @@ from isolation.valve_isolation import ValveIsolationManager
 from restoration.supply_restoration import SupplyRestorationManager
 
 
-INP_FILE = ROOT_DIR / "EPANETINPUTFILESFOR7NEWORKS" / "2_Extended Hanoi.inp"
+# ── Network configurations ────────────────────────────────────────────
+NETWORK_CONFIGS = {
+    "extended_hanoi": {
+        "label": "Extended Hanoi (34 pipes)",
+        "inp": ROOT_DIR / "EPANETINPUTFILESFOR7NEWORKS" / "2_Extended Hanoi.inp",
+        "models_dir": ROOT_DIR / "models" / "extended_hanoi",
+    },
+    "balerma": {
+        "label": "Balerma (454 pipes)",
+        "inp": ROOT_DIR / "EPANETINPUTFILESFOR7NEWORKS" / "5_Balerma.inp",
+        "models_dir": ROOT_DIR / "models" / "balerma",
+    },
+}
+CURRENT_NETWORK = "balerma"  # default
+
+def _inp_file() -> Path:
+    return NETWORK_CONFIGS[CURRENT_NETWORK]["inp"]
+
+def _models_dir() -> Path:
+    return NETWORK_CONFIGS[CURRENT_NETWORK]["models_dir"]
+
 PORT = 8000
 
 SIMULATION_RESULTS = {}  # Track latest simulation per fault_id
@@ -55,13 +75,18 @@ HTML_PAGE = """<!DOCTYPE html>
     #status { margin-top: 12px; white-space: pre-wrap; font-family: monospace; line-height: 1.4; font-size: 12px; background: #f8fafc; padding: 8px; border-radius: 4px; }
     #network-svg { width: 100%; height: 650px; border-radius: 10px; border: 1px solid #d1d5db; background: #fff; }
     .node { cursor: pointer; }
-    .node circle { fill: #0366d6; stroke: #fff; stroke-width: 1.8px; }
-    .edge { stroke: #94a3b8; stroke-width: 2px; }
-    .edge.selected { stroke: #dc2626; stroke-width: 3px; }
-    .edge.predicted { stroke: #22c55e; stroke-width: 3px; }
-    .edge.isolated { stroke: #b91c1c; stroke-width: 3px; stroke-dasharray: 6 3; }
-    .edge.restored { stroke: #16a34a; stroke-width: 3px; }
-    .node.selected circle { fill: #f97316; }
+    .node circle { fill: #3b82f6; stroke: #fff; stroke-width: 1px; transition: all 0.2s; }
+    .node:hover circle { fill: #f97316; }
+    .node-label { display: none; font-size: 11px; fill: #1e293b; font-weight: bold; pointer-events: none; text-shadow: 1px 1px 0 #fff, -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff; }
+    .node:hover .node-label { display: block; }
+    .edge { stroke: #cbd5e1; stroke-width: 1.5px; transition: all 0.2s; }
+    .edge.selected { stroke: #dc2626 !important; stroke-width: 5px !important; }
+    .edge.assigned { stroke: #f97316 !important; stroke-width: 5px !important; }
+    .edge.predicted { stroke: #22c55e !important; stroke-width: 5px !important; z-index: 10; }
+    .edge.predicted-correct { stroke: #10b981 !important; stroke-width: 7px !important; stroke-dasharray: 8 4; z-index: 20; filter: drop-shadow(0 0 3px #10b981); }
+    .edge.isolated { stroke: #b91c1c; stroke-width: 4px; stroke-dasharray: 6 3; }
+    .edge.restored { stroke: #16a34a; stroke-width: 4px; }
+    .node.selected circle { fill: #dc2626; }
     .valve-label { font-size: 10px; fill: #0f172a; }     .customer-label { font-size: 10px; fill: #2563eb; font-weight: bold; }    .metric-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e2e8f0; font-size: 13px; }
     .metric-row .label { font-weight: 500; }
     .metric-row .value { text-align: right; font-family: monospace; }
@@ -73,7 +98,11 @@ HTML_PAGE = """<!DOCTYPE html>
 <body>
   <header>
     <h1>Water Distribution Network - Fault Detection & Response System</h1>
-    <p>Objectives 1-5: Detection, Localization, Isolation, and Restoration</p>
+    <div style="display:flex; align-items:center; gap:16px; margin-top:6px;">
+      <p style="margin:0;">Objectives 1-5: Detection, Localization, Isolation, and Restoration</p>
+      <select id="network-select" style="padding:6px 12px; border-radius:6px; border:1px solid #94a3b8; font-size:13px; font-weight:600; background:#1e293b; color:#f1f5f9; cursor:pointer;">
+      </select>
+    </div>
   </header>
   
   <div class="tabs">
@@ -281,7 +310,14 @@ HTML_PAGE = """<!DOCTYPE html>
 
     function drawNetwork() {
       if (!network) return;
-      svg.innerHTML = '';
+      svg.innerHTML = `
+        <g id="layer-edges"></g>
+        <g id="layer-nodes"></g>
+        <g id="layer-highlights"></g>
+      `;
+      const layerEdges = svg.querySelector('#layer-edges');
+      const layerNodes = svg.querySelector('#layer-nodes');
+      const layerHighlights = svg.querySelector('#layer-highlights');
       const width = 1000, height = 700;
       const nodeById = {};
       network.nodes.forEach(node => { nodeById[node.id] = node; });
@@ -303,16 +339,22 @@ HTML_PAGE = """<!DOCTYPE html>
         line.setAttribute('x2', target.x * width);
         line.setAttribute('y2', target.y * height);
         let cssClass = 'edge';
-        // Priority: selected (user) > restored (if toggle on) > isolated (closed) > predicted (detection)
+        // Priority: selected (user) > predicted (detection) > isolated > assigned > restored
         const selected = Array.isArray(selectedPipe) ? selectedPipe.includes(edge.id) : edge.id === selectedPipe;
-        if (selected) {
+        const assigned = pipeFaultMap.hasOwnProperty(edge.id);
+        
+        if (selected && edge.predicted) {
+          cssClass = 'edge predicted-correct'; // Model perfectly guessed the selected fault!
+        } else if (selected) {
           cssClass = 'edge selected';
-        } else if (showRestoration && edge.restored) {
-          cssClass = 'edge restored';
-        } else if (edge.isolated) {
-          cssClass = 'edge isolated';
         } else if (edge.predicted) {
           cssClass = 'edge predicted';
+        } else if (edge.isolated) {
+          cssClass = 'edge isolated';
+        } else if (assigned) {
+          cssClass = 'edge assigned';
+        } else if (showRestoration && edge.restored) {
+          cssClass = 'edge restored';
         }
         line.setAttribute('class', cssClass);
         line.dataset.pipe = edge.id;
@@ -323,7 +365,12 @@ HTML_PAGE = """<!DOCTYPE html>
           });
           drawNetwork();
         });
-        svg.appendChild(line);
+        
+        if (cssClass === 'edge') {
+          layerEdges.appendChild(line);
+        } else {
+          layerHighlights.appendChild(line);
+        }
       });
       // build valve->node mapping from isolation result
       const valveByNode = {};
@@ -349,12 +396,12 @@ HTML_PAGE = """<!DOCTYPE html>
         group.setAttribute('class', 'node');
         group.setAttribute('transform', `translate(${node.x * width}, ${node.y * height})`);
         const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
-        circle.setAttribute('r', 12);
+        circle.setAttribute('r', 5);
         group.appendChild(circle);
         const label = document.createElementNS('http://www.w3.org/2000/svg', 'text');
-        label.setAttribute('x', 16);
-        label.setAttribute('y', 5);
-        label.setAttribute('font-size', '12');
+        label.setAttribute('class', 'node-label');
+        label.setAttribute('x', 8);
+        label.setAttribute('y', 4);
         label.textContent = node.id;
         group.appendChild(label);
         // render valve labels if present
@@ -380,7 +427,7 @@ HTML_PAGE = """<!DOCTYPE html>
           cl.textContent = `Customers: ${customerMap[node.id]}`;
           group.appendChild(cl);
         }
-        svg.appendChild(group);
+        layerNodes.appendChild(group);
       });
     }
 
@@ -620,6 +667,69 @@ HTML_PAGE = """<!DOCTYPE html>
         setStatus('Invalid JSON: ' + err.message);
       }
     });
+    // ── Network switcher ──────────────────────────────────────────
+    const networkSelect = document.getElementById('network-select');
+
+    function loadNetworks() {
+      fetch('/networks').then(r => r.json()).then(data => {
+        networkSelect.innerHTML = '';
+        data.networks.forEach(net => {
+          const opt = document.createElement('option');
+          opt.value = net.id;
+          opt.textContent = net.label;
+          if (net.id === data.current) opt.selected = true;
+          networkSelect.appendChild(opt);
+        });
+      });
+    }
+
+    networkSelect.addEventListener('change', async () => {
+      const netId = networkSelect.value;
+      setStatus('Switching network to ' + netId + '...');
+      try {
+        const res = await fetch('/switch_network', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ network: netId }),
+        });
+        const data = await res.json();
+        if (data.error) { setStatus('Error: ' + data.error); return; }
+        // Reset all state
+        selectedPipe = [];
+        prediction = null;
+        predictedZonePipes = [];
+        pipeFaultMap = {};
+        isolatedPipes = [];
+        restorationPathPipes = [];
+        lastIsolationResult = null;
+        lastRestorationResult = null;
+        customerMap = null;
+        currentFaultId = null;
+        eventTimestamps = {};
+        updateAssignmentsPanel();
+        renderPrediction();
+        document.getElementById('isolation-result').textContent = '';
+        document.getElementById('restoration-result').textContent = '';
+        document.getElementById('faulty-pipe').value = '';
+        document.getElementById('isolated-pipes').value = '';
+        document.getElementById('isolated-nodes').value = '';
+        customerMapText.value = '';
+        // Reload network
+        requestNetwork().then(populateControls).catch(err => setStatus('Failed: ' + err.message));
+        // Reload customer map
+        fetch('/customer_map').then(r => r.json()).then(obj => {
+          if (obj && Object.keys(obj).length) {
+            customerMap = obj;
+            customerMapText.value = JSON.stringify(obj, null, 2);
+          }
+        }).catch(() => {});
+        setStatus('Switched to ' + data.label);
+      } catch (err) {
+        setStatus('Failed to switch network: ' + err.message);
+      }
+    });
+
+    loadNetworks();
     requestNetwork().then(populateControls).catch(err => setStatus('Failed to load network: ' + err.message));
     // auto-load default customer map
     fetch('/customer_map').then(r => r.json()).then(obj => {
@@ -637,7 +747,10 @@ HTML_PAGE = """<!DOCTYPE html>
 
 
 def load_zone_definitions() -> dict[str, int]:
-    zone_file = ROOT_DIR / "DATASETS" / "zone_definitions.json"
+    # Try per-network zone definitions first
+    zone_file = _models_dir() / "zone_definitions.json"
+    if not zone_file.exists():
+        zone_file = ROOT_DIR / "DATASETS" / "zone_definitions.json"
     if zone_file.exists():
         with zone_file.open("r", encoding="utf-8") as handle:
             return json.load(handle)
@@ -645,7 +758,7 @@ def load_zone_definitions() -> dict[str, int]:
 
 
 def load_network_data() -> dict[str, Any]:
-    integrator = EPANETIntegrator(str(INP_FILE))
+    integrator = EPANETIntegrator(str(_inp_file()))
     wn = integrator.wn
 
     nodes: list[dict[str, Any]] = []
@@ -722,11 +835,16 @@ def simulate_leak(faults: Any, default_scenario: str) -> dict[str, Any]:
         raise ValueError("At least one pipe fault is required for a non-normal scenario")
 
     zone_definitions = load_zone_definitions()
-    sample_df = build_sample_df(str(INP_FILE), default_scenario, target_pipe=target_faults)
-    detector = RealTimeLeakDetector(models_dir=ROOT_DIR / "models")
+    sample_df = build_sample_df(str(_inp_file()), default_scenario, target_pipe=target_faults)
+    detector = RealTimeLeakDetector(models_dir=_models_dir())
     result = detector.infer(sample_df)
     zone_id = result.get("localization", {}).get("zone_id")
-    predicted_zone_pipes = [pipe for pipe, zid in zone_definitions.items() if zid == zone_id] if zone_id is not None else []
+    top_zones_info = result.get("localization", {}).get("top_zones", [])
+    top_3_zones = [z["zone_id"] for z in top_zones_info[:3] if z.get("probability", 0) > 0.05]
+    if not top_3_zones and zone_id is not None:
+        top_3_zones = [zone_id]
+        
+    predicted_zone_pipes = [pipe for pipe, zid in zone_definitions.items() if zid in top_3_zones]
     actual_zones = sorted({zone_definitions[pipe] for fault in (target_faults or []) for pipe in [fault['pipe']] if pipe in zone_definitions})
 
     return {
@@ -748,6 +866,16 @@ class DashboardHandler(BaseHTTPRequestHandler):
     def do_GET(self) -> None:
         if self.path == "/" or self.path.startswith("/index"):
             self._send_response(HTML_PAGE.encode("utf-8"), "text/html")
+            return
+        if self.path.startswith("/networks"):
+            try:
+                nets = []
+                for nid, cfg in NETWORK_CONFIGS.items():
+                    nets.append({"id": nid, "label": cfg["label"]})
+                payload = json.dumps({"networks": nets, "current": CURRENT_NETWORK}).encode("utf-8")
+                self._send_response(payload, "application/json")
+            except Exception as exc:
+                self._send_response(json.dumps({"error": str(exc)}).encode("utf-8"), "application/json", status=500)
             return
         if self.path.startswith("/network"):
             try:
@@ -772,7 +900,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
         self.send_error(404, "Not Found")
 
     def do_POST(self) -> None:
-        global EVENT_COUNTER
+        global EVENT_COUNTER, CURRENT_NETWORK, SIMULATION_RESULTS
         
         if self.path == "/simulate":
             length = int(self.headers.get("Content-Length", "0"))
@@ -823,7 +951,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 if not faulty_pipe_id:
                     raise ValueError("pipe_id required for isolation")
                 
-                manager = ValveIsolationManager(str(INP_FILE))
+                manager = ValveIsolationManager(str(_inp_file()))
                 result = manager.compute_isolation(faulty_pipe_id)
                 
                 # Track isolation result for metrics
@@ -858,7 +986,7 @@ class DashboardHandler(BaseHTTPRequestHandler):
                 isolated_nodes = request.get("isolated_nodes", [])
                 customer_map = request.get("customer_map") if request.get("customer_map") is not None else None
                 
-                manager = SupplyRestorationManager(str(INP_FILE))
+                manager = SupplyRestorationManager(str(_inp_file()))
                 result = manager.compute_restoration(isolated_pipes, isolated_nodes, customer_map=customer_map)
                 
                 # Complete event and add to evaluator
@@ -884,6 +1012,28 @@ class DashboardHandler(BaseHTTPRequestHandler):
                     "error": str(exc),
                     "type": exc.__class__.__name__,
                 }).encode("utf-8")
+                self._send_response(payload, "application/json", status=500)
+            return
+
+        if self.path == "/switch_network":
+            length = int(self.headers.get("Content-Length", "0"))
+            body = self.rfile.read(length).decode("utf-8") if length else ""
+            try:
+                request = json.loads(body) if body else {}
+                net_id = request.get("network")
+                if net_id not in NETWORK_CONFIGS:
+                    raise ValueError(f"Unknown network: {net_id}. Available: {list(NETWORK_CONFIGS.keys())}")
+                CURRENT_NETWORK = net_id
+                SIMULATION_RESULTS = {}
+                EVENT_COUNTER = 0
+                cfg = NETWORK_CONFIGS[net_id]
+                print(f"Switched to network: {cfg['label']} ({cfg['inp']})")
+                payload = json.dumps({"status": "ok", "network": net_id, "label": cfg["label"]}).encode("utf-8")
+                self._send_response(payload, "application/json")
+            except Exception as exc:
+                import traceback
+                traceback.print_exc()
+                payload = json.dumps({"error": str(exc)}).encode("utf-8")
                 self._send_response(payload, "application/json", status=500)
             return
 

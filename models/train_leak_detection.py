@@ -12,7 +12,7 @@ import numpy as np
 import torch
 from sklearn.ensemble import ExtraTreesClassifier, RandomForestClassifier
 from sklearn.metrics import classification_report, confusion_matrix
-from sklearn.model_selection import GridSearchCV, StratifiedShuffleSplit
+from sklearn.model_selection import GridSearchCV, train_test_split
 
 ROOT_DIR = Path(__file__).resolve().parents[1]
 DATA_DIR = ROOT_DIR / "DATASETS"
@@ -40,16 +40,15 @@ def load_classification_data(use_cleaned: bool = False) -> tuple[np.ndarray, np.
 
 
 def split_train_val_test(X: np.ndarray, y: np.ndarray, seed: int = 42) -> Dict[str, np.ndarray]:
-    splitter = StratifiedShuffleSplit(n_splits=1, test_size=0.30, random_state=seed)
-    train_idx, hold_idx = next(splitter.split(X, y))
-    X_train, y_train = X[train_idx], y[train_idx]
-    X_hold, y_hold = X[hold_idx], y[hold_idx]
-
-    val_ratio = 0.5
-    splitter2 = StratifiedShuffleSplit(n_splits=1, test_size=val_ratio, random_state=seed)
-    val_idx, test_idx = next(splitter2.split(X_hold, y_hold))
-    X_val, y_val = X_hold[val_idx], y_hold[val_idx]
-    X_test, y_test = X_hold[test_idx], y_hold[test_idx]
+    """Split data into train/val/test without stratification to handle rare classes."""
+    # First split: 70% train, 30% hold (val+test)
+    X_train, X_hold, y_train, y_hold = train_test_split(
+        X, y, test_size=0.30, random_state=seed, shuffle=True
+    )
+    # Second split: 50% val, 50% test from hold set
+    X_val, X_test, y_val, y_test = train_test_split(
+        X_hold, y_hold, test_size=0.5, random_state=seed, shuffle=True
+    )
 
     return {
         "X_train": X_train,
@@ -212,10 +211,10 @@ def main() -> None:
     save_metrics(metrics, MODELS_DIR / metrics_output)
 
     test_accuracy = metrics["test"]["classification_report"]["accuracy"]
-    print(f"\n✓ Selected model: {best_name}")
-    print(f"✓ Test Set Accuracy: {test_accuracy:.4f}")
-    print(f"✓ Model saved to: {MODELS_DIR / 'leak_detection_model.pkl'}")
-    print(f"✓ Metrics saved to: {MODELS_DIR / 'leak_detection_metrics.json'}")
+    print(f"\nSelected model: {best_name}")
+    print(f"Test Set Accuracy: {test_accuracy:.4f}")
+    print(f"Model saved to: {MODELS_DIR / 'leak_detection_model.pkl'}")
+    print(f"Metrics saved to: {MODELS_DIR / 'leak_detection_metrics.json'}")
 
     if test_accuracy < 0.50:
         print(
