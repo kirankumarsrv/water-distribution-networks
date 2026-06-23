@@ -97,7 +97,13 @@ HTML_PAGE = """<!DOCTYPE html>
           <option value="burst">Burst</option>
           <option value="blockage">Blockage</option>
         </select>
-        <button id="assign-fault">Assign to selected pipe(s)</button>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <button id="assign-fault">Assign to selected pipe(s)</button>
+          <button id="randomize-assignments" class="secondary">Randomize assignments</button>
+          <button id="undo-randomize" class="secondary" disabled style="opacity:0.9;">Undo</button>
+          <label for="random-count" style="margin:0 4px;font-size:13px;color:#475569;">Count</label>
+          <input id="random-count" type="number" min="1" max="20" value="3" style="width:64px;padding:8px;border-radius:6px;border:1px solid #cbd5e1;" />
+        </div>
         <label for="pipe">Select pipe(s) <small style="font-weight:normal;">(Ctrl+click for multiple)</small></label>
         <select id="pipe" multiple size="10" style="min-height: 160px;"></select>
         <div id="assignments" style="margin: 12px 0; font-size: 13px; color: #334155; line-height: 1.4; background: #f8fafc; padding: 12px; border: 1px solid #e2e8f0; border-radius: 8px; max-height: 120px; overflow-y: auto;">
@@ -171,6 +177,7 @@ HTML_PAGE = """<!DOCTYPE html>
     const pipeSelect = document.getElementById('pipe');
     const faultTypeSelect = document.getElementById('fault-type');
     const assignFaultButton = document.getElementById('assign-fault');
+    const undoRandomizeButton = document.getElementById('undo-randomize');
     const assignmentsPanel = document.getElementById('assignments');
     const simulateButton = document.getElementById('simulate');
     const isolateButton = document.getElementById('isolate');
@@ -182,6 +189,7 @@ HTML_PAGE = """<!DOCTYPE html>
     let prediction = null;
     let predictedZonePipes = [];
     let pipeFaultMap = {};
+    let previousAssignments = null; // snapshot for undo
     let lastIsolationResult = null;
     let lastRestorationResult = null;
     let isolatedPipes = [];
@@ -273,10 +281,56 @@ HTML_PAGE = """<!DOCTYPE html>
         updateAssignmentsPanel();
         drawNetwork();
         setStatus(`Assigned ${type} to ${selectedPipe.length} pipe(s).`);
+        // clear undo snapshot when user explicitly assigns
+        previousAssignments = null;
+        if (undoRandomizeButton) undoRandomizeButton.disabled = true;
       });
       updateAssignmentsPanel();
       drawNetwork();
       renderPrediction();
+      // Randomize assignments button: choose random types for selected pipes
+      const randomizeButton = document.getElementById('randomize-assignments');
+      randomizeButton.addEventListener('click', () => {
+        const types = ['normal','leak','burst','blockage'];
+        // If user has selection, randomize only those, otherwise pick N random pipes
+        let targets = Array.isArray(selectedPipe) && selectedPipe.length ? selectedPipe.slice() : [];
+        if (targets.length === 0 && network && Array.isArray(network.pipes) && network.pipes.length) {
+          const pool = network.pipes.map(p => p.id).slice();
+          const cfg = parseInt((document.getElementById('random-count') || {}).value || 0, 10) || 3;
+          const count = Math.max(1, Math.min(cfg, pool.length));
+          for (let i = 0; i < count; i++) {
+            const idx = Math.floor(Math.random() * pool.length);
+            targets.push(pool.splice(idx,1)[0]);
+          }
+        }
+        if (!targets.length) { setStatus('No pipes available to randomize.'); return; }
+        const confirmMsg = `Randomize assignments for ${targets.length} pipe(s)? This will overwrite existing assignments.`;
+        if (!window.confirm(confirmMsg)) return;
+
+        // snapshot current assignments for undo
+        previousAssignments = Object.assign({}, pipeFaultMap);
+
+        targets.forEach(pipe => {
+          const t = types[Math.floor(Math.random() * types.length)];
+          pipeFaultMap[pipe] = t;
+        });
+        updateAssignmentsPanel();
+        drawNetwork();
+        setStatus(`Randomized assignments for ${targets.length} pipe(s).`);
+        if (undoRandomizeButton) undoRandomizeButton.disabled = false;
+      });
+
+      if (undoRandomizeButton) {
+        undoRandomizeButton.addEventListener('click', () => {
+          if (!previousAssignments) { setStatus('Nothing to undo.'); return; }
+          pipeFaultMap = Object.assign({}, previousAssignments);
+          previousAssignments = null;
+          updateAssignmentsPanel();
+          drawNetwork();
+          setStatus('Randomization undone.');
+          undoRandomizeButton.disabled = true;
+        });
+      }
     }
 
     function drawNetwork() {
